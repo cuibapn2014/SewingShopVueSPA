@@ -5,16 +5,17 @@
         Bảng điều khiển
       </h2>
 
-      <div v-if="false" class="duration-150 relative bg-red-500 mb-2 text-white p-2 rounded-lg">
+      <div v-if="this.dataAnalytic?.orderWarning > 0 || false"
+        class="duration-150 relative bg-red-500 mb-2 text-white p-2 rounded-lg">
         <p class="font-semibold flex items-center text-lg">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd"
               d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
               clip-rule="evenodd" />
           </svg>
-          <span class="mx-1">Có 0 đơn hàng sắp đến hạn giao</span>
+          <span class="mx-1">Có {{ this.dataAnalytic?.orderWarning }} đơn hàng sắp đến hạn giao</span>
         </p>
-        <a href="" class="
+        <router-link tag="a" to="/order" class="
           flex
           absolute
           top-3
@@ -30,7 +31,7 @@
             stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
-        </a>
+        </router-link>
       </div>
 
       <!-- Cards -->
@@ -64,7 +65,7 @@
               Khách
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              1
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.countClient).toLocaleString('vi') : 0 }}
             </p>
           </div>
         </div>
@@ -97,7 +98,7 @@
               Doanh thu
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0 <sup>đ</sup>
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.revenue.total).toLocaleString('vi') : 0 }} <sup>đ</sup>
             </p>
           </div>
         </div>
@@ -130,7 +131,7 @@
               Đơn hàng
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.countOrder).toLocaleString('vi') : 0 }}
             </p>
           </div>
         </div>
@@ -163,7 +164,7 @@
               Nợ công bán
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0 <sup>đ</sup>
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.debt.debtSale).toLocaleString('vi') : 0 }} <sup>đ</sup>
             </p>
           </div>
         </div>
@@ -195,7 +196,7 @@
               Nợ công mua
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0 <sup>đ</sup>
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.debt.debtBuy).toLocaleString('vi') : 0 }} <sup>đ</sup>
             </p>
           </div>
         </div>
@@ -227,7 +228,7 @@
               Đơn hàng chờ duyệt
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.countPreOrder).toLocaleString('vi') : 0 }}
             </p>
           </div>
         </div>
@@ -259,7 +260,8 @@
               Tổng chi
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0 <sup>đ</sup>
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.financeTotal.spent).toLocaleString('vi') : 0 }}
+              <sup>đ</sup>
             </p>
           </div>
         </div>
@@ -291,7 +293,8 @@
               Tổng thu
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0 <sup>đ</sup>
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.financeTotal.earn).toLocaleString('vi') : 0 }}
+              <sup>đ</sup>
             </p>
           </div>
         </div>
@@ -323,7 +326,7 @@
               Thu/Chi chờ duyệt
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.finance).toLocaleString('vi') : 0 }}
             </p>
           </div>
         </div>
@@ -355,7 +358,7 @@
               Đề nghị sản xuất
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.productionRequest).toLocaleString('vi') : 0 }}
             </p>
           </div>
         </div>
@@ -387,7 +390,7 @@
               Đề xuất mua hàng
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.requirement).toLocaleString('vi') : 0 }}
             </p>
           </div>
         </div>
@@ -419,7 +422,7 @@
               Nhập kho/Xuất kho
             </p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              0
+              {{ this.dataAnalytic ? Number(this.dataAnalytic?.warehouse).toLocaleString('vi') : 0 }}
             </p>
           </div>
         </div>
@@ -513,12 +516,46 @@
 </template>
 <script>
 import BaseLayout from "../../components/layouts/BaseLayout.vue"
+import { pieChart } from "../../helpers/chart/charts-pie"
+import { chartLine } from "../../helpers/chart/charts-lines"
+import { barChart } from "../../helpers/chart/charts-bars"
+import { config } from "../../helpers/config"
+import axios from "axios"
 export default {
   components: {
     BaseLayout
   },
+  beforeCreate() {
+    this.$store.dispatch('metadata/getDataFromApi').then(() => {
+      this.dataAnalytic = this.$store.getters['metadata/getDataAnalytic']
+    })
+  },
+  mounted() {
+    this.fetchCountProductType()
+    this.fetchRevenue()
+    this.fetchDebt()
+  },
   data() {
-    return {}
+    return {
+      dataAnalytic: null
+    }
+  },
+  methods: {
+    async fetchCountProductType() {
+      await axios.get(`${config.apiUrl}/product-type`)
+        .then(res => pieChart(res.data.data))
+        .catch(err => console.log(err))
+    },
+    async fetchRevenue() {
+      await axios.get(`${config.apiUrl}/revenue`)
+        .then(res => chartLine(res.data.data))
+        .catch(err => console.log(err))
+    },
+    async fetchDebt() {
+      await axios.get(`${config.apiUrl}/debt`)
+        .then(res => barChart(res.data.data))
+        .catch(err => console.log(err))
+    }
   }
 }
 </script>

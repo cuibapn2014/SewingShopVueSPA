@@ -19,8 +19,8 @@ const routes = [
         }
     },
     {
-        path: '/admin',
-        name: 'admin',
+        path: '/dashboard',
+        name: 'dashboard',
         component: Home,
         meta:{
             animateName: "fade",
@@ -78,7 +78,7 @@ router.beforeEach((to, from, next) => {
     }
 
     if(publicPages[0].includes(to.path) && loggedIn){
-        return next('/admin');
+        return next('/dashboard');
     }
 
     next()
