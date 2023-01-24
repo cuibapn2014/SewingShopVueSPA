@@ -4,6 +4,8 @@ import HelloWorld from "./components/HelloWorld.vue";
 import { useStore } from 'vuex'
 import "animate.css"
 import router from "./router";
+import "./assets/css/transition.css"
+
 const store = useStore()
 onBeforeMount(() => {
   const isUser = store.getters['account/getUser']
@@ -15,7 +17,7 @@ onBeforeMount(() => {
 <template>
   <router-view v-slot="{ Component, route }">
     <transition :name="route.meta.animateName" mode="out-in">
-        <component :is="Component" :key="route.path"></component>
+        <component :is="Component"></component>
     </transition>
   </router-view>
 </template>
@@ -33,26 +35,5 @@ onBeforeMount(() => {
 
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
-}
-
-.float-enter-active,
-.float-leave-active {
-  transition: .35s ease;
-}
-
-.float-enter-from,
-.float-leave-active {
-  opacity: 0;
-  transform: translateX(50%);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: .35s ease;
-}
-
-.fade-enter-from,
-.fade-leave-active {
-  opacity: 0;
 }
 </style>

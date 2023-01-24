@@ -1,127 +1,131 @@
 <template>
-    @if ($paginator->hasPages())
-    <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between px-4 bg-gray-50 dark:bg-gray-800 sticky bottom-0">
-        <div class="flex justify-between flex-1 sm:hidden">
-            @if ($paginator->onFirstPage())
-                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-[#ffffff] border border-gray-300 cursor-default leading-5 rounded-md">
-                    {!! __('pagination.previous') !!}
-                </span>
-            @else
-                <a href="{{ $paginator->previousPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-[#ffffff] border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                    {!! __('pagination.previous') !!}
-                </a>
-            @endif
-
-            @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-[#ffffff] border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                    {!! __('pagination.next') !!}
-                </a>
-            @else
-                <span class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-[#ffffff] border border-gray-300 cursor-default leading-5 rounded-md">
-                    {!! __('pagination.next') !!}
-                </span>
-            @endif
-        </div>
-
-        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-            <div>
-                <p class="text-sm text-gray-500 leading-5 dark:text-gray-400">
-                    Showing
-                    @if ($paginator->firstItem())
-                        <span class="font-medium">{{ $paginator->firstItem() }}</span>
-                        {!! __('to') !!}
-                        <span class="font-medium">{{ $paginator->lastItem() }}</span>
-                    @else
-                        {{ $paginator->count() }}
-                    @endif
-                    of
-                    <span class="font-medium">{{ $paginator->total() }}</span>
-                    results
-                </p>
-            </div>
-
-            <div>
-                <span class="relative z-0 inline-flex rounded-md my-2">
-                    <!-- Previous Page Link -->
-                    @if ($paginator->onFirstPage())
-                        <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
-                            <span class="relative inline-flex items-center px-2 text-sm font-medium px-2 py-2 text-gray-500 cursor-default rounded-l-md leading-5" aria-hidden="true">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </span>
-                    @else
-                        <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="relative inline-flex items-center px-2 text-sm font-medium text-gray-500 rounded-l-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="{{ __('pagination.previous') }}">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+    <div
+        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+        <span class="flex items-center col-span-3">
+            Hiển thị {{ dataPaginate?.from?.toLocaleString('vi') }}-{{ dataPaginate?.to?.toLocaleString('vi') }} trong
+            {{
+                dataPaginate?.total.toLocaleString('vi')
+            }}
+        </span>
+        <span class="col-span-2"></span>
+        <!-- Pagination -->
+        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <nav aria-label="Table navigation">
+                <ul class="inline-flex items-center">
+                    <li v-if="renderPaginate.prev">
+                        <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Previous" @click="this.changePage(renderPaginate.prev)">
+                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                <path
+                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" fill-rule="evenodd"></path>
                             </svg>
-                        </a>
-                    @endif
-
-                    <!-- Pagination Elements -->
-                    @foreach ($elements as $element)
-                        <!-- "Three Dots" Separator -->
-                        @if (is_string($element))
-                            <span aria-disabled="true">
-                                <span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-[#ffffff] border border-gray-300 cursor-default leading-5">{{ $element }}</span>
-                            </span>
-                        @endif
-
-                        <!-- Array Of Links -->
-                        @if (is_array($element))
-                            @foreach ($element as $page => $url)
-                                @if ($page == $paginator->currentPage())
-                                    <span aria-current="page">
-                                        <span class="relative inline-flex items-center rounded-lg px-3 py-2 -ml-px text-sm font-medium text-gray-500 bg-purple-600 text-[#ffffff] cursor-default leading-5">{{ $page }}</span>
-                                    </span>
-                                @else
-                                    <a href="{{ $url }}" class="relative inline-flex items-center rounded-lg px-3 py-2 -ml-px text-sm font-medium text-gray-700 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
-                                        {{ $page }}
-                                    </a>
-                                @endif
-                            @endforeach
-                        @endif
-                    @endforeach
-
-                    <!-- Next Page Link -->
-                    @if ($paginator->hasMorePages())
-                        <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="{{ __('pagination.next') }}">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </button>
+                    </li>
+                    <li v-for="(item, index) in renderPaginate.items" :key="index" @click="this.changePage(item)">
+                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" :class="
+                            {
+                                'rounded-md focus:outline-none focus:shadow-outline-purple': !(currentPage == item),
+                                'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple': (currentPage == item)
+                            }
+                        ">
+                            {{ item }}
+                        </button>
+                    </li>
+                    <!-- <li>
+                        <button
+                            class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
+                            3
+                        </button>
+                    </li> -->
+                    <!-- <li>
+                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                            4
+                        </button>
+                    </li>
+                    <li>
+                        <span class="px-3 py-1">...</span>
+                    </li>
+                    <li>
+                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                            8
+                        </button>
+                    </li>
+                    <li>
+                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                            9
+                        </button>
+                    </li> -->
+                    <li v-if="renderPaginate.next">
+                        <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Next" @click="this.changePage(renderPaginate.next)">
+                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                <path
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd" fill-rule="evenodd"></path>
                             </svg>
-                        </a>
-                    @else
-                        <span aria-disabled="true" aria-label="{{ __('pagination.next') }}">
-                            <span class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 cursor-default rounded-r-md leading-5" aria-hidden="true">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </span>
-                    @endif
-                </span>
-            </div>
-        </div>
-    </nav>
-@endif
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </span>
+    </div>
 
 </template>
 <script>
+import emitter from 'tiny-emitter/instance'
+
 export default {
-    data(){
-        return{
-            perPage: 20,
-            total: 0,
-            currentIndex: 1,
-            currentPage: 1,
-            previousPage: 0,
-            nextPage: 0,
+    props: {
+        data_paginate: Object,
+        path_current: String
+    },
+    computed: {
+        renderPaginate() {
+            let paginate = this.data_paginate
+            let current = paginate?.current_page ?? 1
+            let max = Math.ceil(paginate?.total / paginate?.per_page)
+            let prev = current == 1 ? null : current - 1
+            let next = current == max ? null : current + 1
+            if (!current || !max) return null
+
+            let items = [1]
+
+            if (current === 1 && max === 1) return { items }
+            if (current > 4) items.push('…')
+
+            let r = 2, r1 = current - r, r2 = current + r
+
+            for (let i = r1 > 2 ? r1 : 2; i <= Math.min(max, r2); i++) items.push(i)
+
+            if (r2 + 1 < max) items.push('…')
+            if (r2 < max) items.push(max)
+
+            return {prev, next, items}
+        },
+        dataPaginate(){
+            return this.data_paginate
         }
     },
-    methods:{
-
-    }    
+    data() {
+        return {
+            paginate: this.data_paginate,
+            currentPage: 1
+        }
+    },
+    methods: {
+        changePage(toPage) {
+            if (!Number(toPage)) return
+            this.currentPage = toPage
+            this.$router.push({
+                path: this.path_current,
+                query: {
+                    page: toPage
+                }
+            })
+            emitter.emit('pagechanged', this.currentPage)
+        }
+    }
 }
 </script>
 <style scoped>

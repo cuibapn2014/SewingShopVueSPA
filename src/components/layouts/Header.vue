@@ -361,7 +361,7 @@
           " @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
           v-on-clickaway="closeProfileMenu" aria-haspopup="true">
           <img class="object-cover w-8 h-8 rounded-full" :src="'http://myproject.com/img/user/' + this.user?.image"
-            alt="" aria-hidden="true" />
+            alt="" aria-hidden="true" loading="lazy"/>
         </button>
         <Transition leave-from-class="transition opacity-100" leave-to-class="opacity-0">
           <template v-if="isProfileMenuOpen">

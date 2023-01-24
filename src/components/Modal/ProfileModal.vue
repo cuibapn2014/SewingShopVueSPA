@@ -4,7 +4,7 @@
             <div class="flex justify-between my-3">
                 <label for="image" class="cursor-pointer h-fit rounded-full relative overflow-hidden">
                     <img :src="basePath + 'img/user/' + user?.image"
-                        class="h-24 w-24 border rounded-full object-cover object-center" alt="" />
+                        class="h-24 w-24 border rounded-full object-cover object-center" alt="" loading="lazy"/>
                     <div v-if="isChange"
                         class="absolute w-full h-full bg-black bg-opacity-50 top-0 flex items-center justify-center">
                         <font-awesome-icon class="animate-spin w-7 h-7 text-indigo-500"

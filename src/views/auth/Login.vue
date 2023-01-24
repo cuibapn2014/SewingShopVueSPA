@@ -4,9 +4,9 @@
             <div class="flex flex-col overflow-y-auto md:flex-row">
                 <div class="h-32 md:h-auto md:w-1/2">
                     <img aria-hidden="true" class="object-cover w-full h-full dark:hidden" :src="loginImage"
-                        alt="Office" />
+                        alt="Office" loading="lazy" />
                     <img aria-hidden="true" class="hidden object-cover w-full h-full dark:block" :src="loginImageDark"
-                        alt="Office" />
+                        alt="Office" loading="lazy" />
                 </div>
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
 
@@ -91,7 +91,7 @@ export default {
         this.getTheme();
         let logined = this.$store.getters.isLoggedIn
         if (logined)
-            this.$router.push('/admin')
+            this.$router.push('/dashboard')
     },
     data() {
         return {
@@ -134,7 +134,7 @@ export default {
             if (!this.isSubmit) {
                 this.isSubmit = true
                 this.$store.dispatch('account/login', this.credentials).then(() => {
-                    this.$router.push('/admin')
+                    this.$router.push('/dashboard')
                 }).catch(err => {
                     toast.error("Lỗi không thể đăng nhập", {
                         position: toast.POSITION.TOP_RIGHT,

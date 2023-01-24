@@ -15,8 +15,8 @@
         MyProject
       </a>
       <ul class="mt-6">
-        <li class="cursor-pointer relative px-6 py-3" @click="setActive(0)">
-          <span v-if="isActive == 0" class="
+        <li class="cursor-pointer relative px-6 py-3">
+          <span v-if="isRoute('dashboard')" class="
               absolute
               inset-y-0
               left-0
@@ -24,7 +24,7 @@
               bg-purple-600
               rounded-tr-lg rounded-br-lg
             " aria-hidden="true"></span>
-          <a class="
+          <router-link to="/dashboard" class="
               inline-flex
               items-center
               w-full
@@ -35,8 +35,8 @@
               hover:text-gray-800
               dark:hover:text-gray-200
             " :class="{
-              'text-gray-800': this.isActive == 0,
-              'dark:text-gray-100': this.isActive == 0,
+              'text-gray-800': isRoute('dashboard'),
+              'dark:text-gray-100': isRoute('dashboard'),
             }">
             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
               stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,10 +45,8 @@
               </path>
             </svg>
             <span class="ml-4">Bảng điều khiển</span>
-          </a>
+          </router-link>
         </li>
-      </ul>
-      <ul>
         <li class="cursor-pointer relative px-6 py-3">
           <span v-if="this.isSaleActive" class="
               absolute
@@ -115,13 +113,13 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(1)">
-                  <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
-                    'text-gray-800': this.isActive == 1,
-                    'dark:text-gray-100': this.isActive == 1,
+                  ">
+                  <router-link tag="a" to="/order" class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
+                    'text-gray-800': isRoute('order'),
+                    'dark:text-gray-100': isRoute('order'),
                   }">
                     Đơn hàng
-                  </a>
+                  </router-link>
                 </li>
                 <li class="cursor-pointer 
                     px-2
@@ -130,13 +128,14 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(6)">
-                  <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
-                    'text-gray-800': this.isActive == 6,
-                    'dark:text-gray-100': this.isActive == 6,
-                  }">
+                  ">
+                  <router-link to="/customer" tag="a" class="w-full hover:text-gray-800 dark:hover:text-gray-200"
+                    :class="{
+                      'text-gray-800': isRoute('customer'),
+                      'dark:text-gray-100': isRoute('customer'),
+                    }">
                     Khách hàng
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </template>
@@ -208,7 +207,7 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(11)">
+                  ">
                   <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
                     'text-gray-800': this.isActive == 11,
                     'dark:text-gray-100': this.isActive == 11,
@@ -223,7 +222,7 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(12)">
+                  ">
                   <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
                     'text-gray-800': this.isActive == 12,
                     'dark:text-gray-100': this.isActive == 12,
@@ -238,7 +237,7 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(13)">
+                  ">
                   <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
                     'text-gray-800': this.isActive == 13,
                     'dark:text-gray-100': this.isActive == 13,
@@ -317,7 +316,7 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(10)">
+                  ">
                   <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
                     'text-gray-800': this.isActive == 10,
                     'dark:text-gray-100': this.isActive == 10,
@@ -332,7 +331,7 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(14)">
+                  ">
                   <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
                     'text-gray-800': this.isActive == 14,
                     'dark:text-gray-100': this.isActive == 14,
@@ -347,7 +346,7 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(3)">
+                  ">
                   <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
                     'text-gray-800': this.isActive == 3,
                     'dark:text-gray-100': this.isActive == 3,
@@ -362,7 +361,7 @@
                     duration-150
                     hover:text-gray-800
                     dark:hover:text-gray-200
-                  " @click="setActive(5)">
+                  ">
                   <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
                     'text-gray-800': this.isActive == 5,
                     'dark:text-gray-100': this.isActive == 5,
@@ -382,8 +381,8 @@
             </template>
           </transition>
         </li>
-        <li class="cursor-pointer relative px-6 py-3" @click="setActive(4)">
-          <span v-if="this.isActive == 4" class="
+        <li class="cursor-pointer relative px-6 py-3">
+          <span v-if="isRoute('task')" class="
               absolute
               inset-y-0
               left-0
@@ -391,7 +390,7 @@
               bg-purple-600
               rounded-tr-lg rounded-br-lg
             " aria-hidden="true"></span>
-          <a class="
+          <router-link to="/task" tag="a" class="
               inline-flex
               items-center
               w-full
@@ -402,8 +401,8 @@
               hover:text-gray-800
               dark:hover:text-gray-200
             " :class="{
-              'text-gray-800': this.isActive == 4,
-              'dark:text-gray-100': this.isActive == 4,
+              'text-gray-800': isRoute('task'),
+              'dark:text-gray-100': isRoute('task'),
             }">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor" stroke-width="2">
@@ -411,10 +410,10 @@
                 d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             <span class="ml-4"> Công việc</span>
-          </a>
+          </router-link>
         </li>
-        <li class="cursor-pointer relative px-6 py-3" @click="setActive(7)">
-          <span v-if="this.isActive == 7" class="
+        <li class="cursor-pointer relative px-6 py-3">
+          <span v-if="isRoute('provider')" class="
               absolute
               inset-y-0
               left-0
@@ -422,7 +421,7 @@
               bg-purple-600
               rounded-tr-lg rounded-br-lg
             " aria-hidden="true"></span>
-          <a class="
+          <router-link to="/provider" tag="a" class="
               inline-flex
               items-center
               w-full
@@ -433,8 +432,8 @@
               hover:text-gray-800
               dark:hover:text-gray-200
             " :class="{
-              'text-gray-800': this.isActive == 7,
-              'dark:text-gray-100': this.isActive == 7,
+              'text-gray-800': isRoute('provider'),
+              'dark:text-gray-100': isRoute('provider'),
             }">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor" stroke-width="2">
@@ -442,10 +441,10 @@
                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
             <span class="ml-4"> Nhà cung cấp</span>
-          </a>
+          </router-link>
         </li>
-        <li class="cursor-pointer relative px-6 py-3" @click="setActive(8)">
-          <span v-if="this.isActive == 8" class="
+        <li class="cursor-pointer relative px-6 py-3">
+          <span v-if="isRoute('finance')" class="
               absolute
               inset-y-0
               left-0
@@ -453,7 +452,7 @@
               bg-purple-600
               rounded-tr-lg rounded-br-lg
             " aria-hidden="true"></span>
-          <a class="
+          <router-link to="/finance" tag="a" class="
               inline-flex
               items-center
               w-full
@@ -464,8 +463,8 @@
               hover:text-gray-800
               dark:hover:text-gray-200
             " :class="{
-              'text-gray-800': this.isActive == 8,
-              'dark:text-gray-100': this.isActive == 8,
+              'text-gray-800': isRoute('finance'),
+              'dark:text-gray-100': isRoute('finance'),
             }">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor" stroke-width="2">
@@ -473,9 +472,9 @@
                 d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span class="ml-4"> Tài chính</span>
-          </a>
+          </router-link>
         </li>
-        <li class="cursor-pointer relative px-6 py-3" @click="setActive(9)">
+        <li class="cursor-pointer relative px-6 py-3">
           <span v-if="this.isActive == 9" class="
               absolute
               inset-y-0
@@ -529,7 +528,8 @@
         items-end
         bg-black bg-opacity-50
         sm:items-center sm:justify-center
-      " @click.prevent="closeSideMenu()" id="backdrop-menu-overlay" :class="{'z-10': !isSideMenuOpen, 'z-30': isSideMenuOpen}"></div>
+      " @click.prevent="closeSideMenu()" id="backdrop-menu-overlay"
+      :class="{ 'z-10': !isSideMenuOpen, 'z-30': isSideMenuOpen }"></div>
   </transition>
   <transition enter-from-class="opacity-0 transform -translate-x-20" enter-to-class="opacity-100"
     leave-from-class="opacity-100" leave-to-class="opacity-0 transform -translate-x-20">
@@ -652,7 +652,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(1)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -671,7 +671,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(6)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -753,7 +753,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(11)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -772,7 +772,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(12)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -791,7 +791,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(13)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -874,7 +874,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(10)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -893,7 +893,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(14)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -912,7 +912,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(3)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -931,7 +931,7 @@
                       duration-150
                       hover:text-gray-800
                       dark:hover:text-gray-200
-                    " @click="setActive(5)">
+                    ">
                     <a class="
                         w-full
                         hover:text-gray-800
@@ -955,7 +955,7 @@
               </template>
             </transition>
           </li>
-          <li class="cursor-pointer relative px-6 py-3" @click="setActive(4)">
+          <li class="cursor-pointer relative px-6 py-3">
             <span v-if="this.isActive == 4" class="
                 absolute
                 inset-y-0
@@ -986,7 +986,7 @@
               <span class="ml-4"> Công việc</span>
             </a>
           </li>
-          <li class="cursor-pointer relative px-6 py-3" @click="setActive(7)">
+          <li class="cursor-pointer relative px-6 py-3">
             <span v-if="this.isActive == 7" class="
                 absolute
                 inset-y-0
@@ -1017,7 +1017,7 @@
               <span class="ml-4"> Nhà cung cấp</span>
             </a>
           </li>
-          <li class="cursor-pointer relative px-6 py-3" @click="setActive(8)">
+          <li class="cursor-pointer relative px-6 py-3">
             <span v-if="this.isActive == 8" class="
                 absolute
                 inset-y-0
@@ -1048,7 +1048,7 @@
               <span class="ml-4"> Tài chính</span>
             </a>
           </li>
-          <li class="cursor-pointer relative px-6 py-3" @click="setActive(9)">
+          <li class="cursor-pointer relative px-6 py-3">
             <span v-if="this.isActive == 9" class="
                 absolute
                 inset-y-0
@@ -1097,30 +1097,32 @@ export default {
   },
   updated() {
     this.isSideMenuOpen = this.display
+    let route = this.$route.path
+    this.setActive(route)
   },
   computed: {
     isWarehouseActive() {
-      const arr = [2, 3, 5, 10, 14];
-      return arr.includes(this.isActive)
+      const arr = ['warehouse-import', 'warehouse-export', 'ingredient', 'product'];
+      this.isWarehouseMenuOpen = arr.includes(this.isActiveItem.replace('/', ''))
+      return arr.includes(this.isActiveItem.replace('/', ''))
     },
-
     isSaleActive() {
-      const arr = [1, 6];
-      return arr.includes(this.isActive)
+      const arr = ['order', 'customer'];
+      this.isSalesMenuOpen = arr.includes(this.isActiveItem.replace('/', ''))
+      return arr.includes(this.isActiveItem.replace('/', ''))
     },
-
     isProductionActive() {
-      const arr = [11, 12, 13];
-      return arr.includes(this.isActive)
+      const arr = ['production-suggest', 'production', 'purchase-suggest'];
+      this.isProductionMenuOpen = arr.includes(this.isActiveItem.replace('/', ''))
+      return arr.includes(this.isActiveItem.replace('/', ''))
     },
-    isSaleActive() {
-      const arr = [1, 6];
-      return arr.includes(this.isActive)
-    },
+    isActiveItem() {
+      return this.isActive
+    }
   },
   data() {
     return {
-      isActive: 0,
+      isActive: this.$route.path,
       isSideMenuOpen: false,
       isSalesMenuOpen: false,
       isWarehouseMenuOpen: false,
@@ -1129,8 +1131,8 @@ export default {
   },
   methods: {
     setActive(active) {
-      this.isActive = active || 0
-      if(this.isSalesMenuOpen) this.closeSideMenu()
+      this.isActive = active
+      if (this.isSalesMenuOpen) this.closeSideMenu()
     },
     toggleSideMenu() {
       // this.isSideMenuOpen = !this.isSideMenuOpen
@@ -1147,6 +1149,11 @@ export default {
     toggleProductionsMenu() {
       this.isProductionMenuOpen = !this.isProductionMenuOpen
     },
+    isRoute(menu) {
+      let route = this.$route.path
+      if (route.includes(menu)) return true
+      return false
+    }
   }
 };
 </script>

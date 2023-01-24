@@ -1,21 +1,21 @@
 <template>
   <div class="container px-6 mx-auto grid">
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-      Đơn hàng
+      Nhà cung cấp
     </h2>
-    <OrderTable :data_list="this.dataList" :is_load="getIsLoad"/>
+    <ProviderTable :data_list="this.dataList" :is_load="getIsLoad"/>
   </div>
 </template>
 <script>
 import BaseLayout from "../../components/layouts/BaseLayout.vue"
-import OrderTable from "../../components/Table/OrderTable.vue";
-import { orderService } from "../../services/order.service"
+import ProviderTable from "../../components/Table/ProviderTable.vue";
+import { providerService } from "../../services/provider.service"
 import emitter from 'tiny-emitter/instance'
 
 export default {
   extends: BaseLayout,
   components: {
-    BaseLayout, OrderTable
+    BaseLayout, ProviderTable
   },
   created() {
     this.fetchDataOrder()
@@ -41,7 +41,7 @@ export default {
       this.isLoadData = true
       const urlSearch = await new URLSearchParams(window.location.search)
       let page = await urlSearch.has('page') ? (pageTo ?? urlSearch.get('page')) : (pageTo ?? 1)
-      await orderService.getDataAll(page).then(res => {
+      await providerService.getDataAll(page).then(res => {
         if (res.data.code == 200)
           this.dataList = res.data
       }).then(() => {

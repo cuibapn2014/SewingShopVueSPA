@@ -6,7 +6,11 @@
                 <Header @toggle-side-bar="toggleSideMenu()"></Header>
             </header>
             <main class="h-full overflow-y-auto">
-                <slot></slot>
+                <router-view v-slot="{ Component }">
+                    <transition name="float-up" mode="out-in">
+                        <component :is="Component"></component>
+                    </transition>
+                </router-view>
             </main>
         </div>
     </div>
@@ -14,6 +18,7 @@
 <script>
 import Header from "../../components/layouts/Header.vue"
 import SideBar from "../../components/layouts/SideBar.vue"
+import "../../assets/css/transition.css"
 export default {
     components: {
         Header, SideBar
@@ -33,6 +38,6 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 
 </style>

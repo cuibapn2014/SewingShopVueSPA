@@ -29,7 +29,7 @@ export default {
         this.getTheme();
         let logined = this.$store.getters.isLoggedIn
         if (logined)
-            this.$router.push('/admin')
+            this.$router.push('/dashboard')
 
         this.email = this.$route.query.email
     },
