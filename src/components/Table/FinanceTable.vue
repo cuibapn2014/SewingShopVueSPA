@@ -53,7 +53,7 @@
                 </svg>
             </button>
         </div>
-        <BaseTable :field_list="this.fieldList" :data_paginate="dataPaginate" :path_current="'finance'">
+        <BaseTable :field_list="this.fieldList" :data_paginate="dataPaginate" path_current="finance">
             <div v-if="is_load"
                 class="bg-gray-200 dark:bg-gray-800 dark:bg-opacity-80 bg-opacity-80 w-full h-full absolute top-0 left-0 z-10 flex items-center justify-center ">
                 <font-awesome-icon class="animate-spin w-[4rem] h-[4rem] text-indigo-500"

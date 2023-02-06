@@ -25,6 +25,9 @@ export default {
       await this.fetchDataOrder(data)
     })
   },
+  beforeUnmount(){
+    emitter.off('pagechanged')
+  },
   computed:{
     getIsLoad(){
       return this.isLoadData

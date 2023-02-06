@@ -7,7 +7,7 @@
             </header>
             <main class="h-full overflow-y-auto">
                 <router-view v-slot="{ Component }">
-                    <transition name="float-up" mode="out-in">
+                    <transition name="fade" mode="out-in">
                         <component :is="Component"></component>
                     </transition>
                 </router-view>
