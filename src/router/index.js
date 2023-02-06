@@ -10,6 +10,8 @@ import Customer from "../views/admin/Customer.vue"
 import Provider from "../views/admin/Provider.vue"
 import Finance from "../views/admin/Finance.vue"
 import Task from "../views/admin/Task.vue"
+import Ingredient from "../views/admin/Ingredient.vue"
+import Product from "../views/admin/Product.vue"
 import ForgotPassword from '../views/auth/ForgotPassword.vue'
 import ResetPassword from '../views/auth/ResetPassword.vue'
 import BaseLayout from '../components/layouts/BaseLayout.vue'
@@ -48,6 +50,16 @@ const routes = [
                 path: '/finance',
                 component: Finance,
                 name: 'finance'
+            },
+            {
+                path: '/ingredient',
+                component: Ingredient,
+                name: 'ingredient'
+            },
+            {
+                path: '/product',
+                component: Product,
+                name: 'product'
             }
         ],
         meta:{

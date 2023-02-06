@@ -347,12 +347,12 @@
                     hover:text-gray-800
                     dark:hover:text-gray-200
                   ">
-                  <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
-                    'text-gray-800': this.isActive == 3,
-                    'dark:text-gray-100': this.isActive == 3,
+                  <router-link to="/ingredient" class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
+                    'text-gray-800': isRoute('ingredient'),
+                    'dark:text-gray-100': isRoute('ingredient'),
                   }">
                     Nguyên phụ liệu
-                  </a>
+                  </router-link>
                 </li>
                 <li class="cursor-pointer 
                     px-2
@@ -362,21 +362,13 @@
                     hover:text-gray-800
                     dark:hover:text-gray-200
                   ">
-                  <a class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
-                    'text-gray-800': this.isActive == 5,
-                    'dark:text-gray-100': this.isActive == 5,
+                  <router-link to="product" class="w-full hover:text-gray-800 dark:hover:text-gray-200" :class="{
+                    'text-gray-800': isRoute('product'),
+                    'dark:text-gray-100': isRoute('product'),
                   }">
                     Thành phẩm
-                  </a>
+                  </router-link>
                 </li>
-                <!-- <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full hover:text-gray-800 dark:hover:text-gray-200"
-                                    :class="{ 'text-gray-800' : this.isActive == 5, 'dark:text-gray-100' : this.isActive == 5 }"
-                                    href="javascript:void(0)">
-                                    Sản phẩm
-                                </a>
-                            </li> -->
               </ul>
             </template>
           </transition>
