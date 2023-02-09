@@ -19,9 +19,16 @@
 import Header from "../../components/layouts/Header.vue"
 import SideBar from "../../components/layouts/SideBar.vue"
 import "../../assets/css/transition.css"
+import mediumZoom from 'medium-zoom'
+
 export default {
     components: {
         Header, SideBar
+    },
+    updated(){
+        const zoom = mediumZoom(document.querySelectorAll('.img__mthumbnail'), {
+            background: "rgba(0,0,0,0.5)"
+        })
     },
     data() {
         return {
@@ -38,6 +45,13 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
 
+.medium-zoom-overlay{
+  z-index: 999;
+}
+
+.medium-zoom-image--opened {
+  z-index: 1000;
+}
 </style>

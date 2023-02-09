@@ -31,7 +31,7 @@
                 </span>
             </td>
             <td class="px-4 py-3 text-sm">
-                <img v-tooltip.top-start="'dfd'" :src="`${this.url}/img/user/${item.user.image}`" class="h-12 w-12 object-cover object-center rounded-full" loading="lazy" />
+                <img v-tooltip.top-start="item.user.name" :src="`${this.url}/img/user/${item.user.image}`" class="h-12 w-12 object-cover object-center rounded-full" loading="lazy" />
             </td>
             <td class="px-4 py-3 text-sm">
             </td>

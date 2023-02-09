@@ -1,12 +1,14 @@
 import { createApp } from 'vue'
 import './style.css'
+import 'floating-vue/dist/style.css'
 // import './assets/css/app.css'
 import './assets/css/tailwind.output.css'
 import App from './App.vue'
 import VueClickAway from 'vue3-click-away'
 import store from './store'
 import router from './router'
-import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
+import VTooltip from 'v-tooltip'
+import FloatingVue from 'floating-vue'
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -21,7 +23,7 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 library.add(faCircleNotch)
 
 const app = createApp(App)
-app.directive('tooltip', VTooltip)
+app.use(FloatingVue)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(VueClickAway)
 app.use(store)

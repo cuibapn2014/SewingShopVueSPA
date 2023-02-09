@@ -98,7 +98,7 @@
                     {{ item.reviewer_date ? new Date(item.reviewer_date).toLocaleDateString('vi-VN') : '' }}
                 </td>
                 <td class="px-4 py-3 text-sm">
-                    <img v-tooltip.top-start="'{{ item.user.name }} - {{ item.user.role.name }}'"
+                    <img v-tooltip.top-start="`${item.user.name} - ${item.user.role.name}`"
                         :src="`${this.url}/img/user/${item.user.image}`"
                         class="h-12 w-12 object-cover object-center rounded-full" />
                 </td>
