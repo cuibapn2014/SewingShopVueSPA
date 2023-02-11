@@ -19,7 +19,8 @@ export const userService = {
     updateAvatar,
     update,
     changePassword,
-    forgotPassword
+    forgotPassword,
+    getAll
 }
 
 function login(user) {
@@ -56,13 +57,15 @@ async function register(user) {
     return await axios.post(`${config.apiUrl}/auth/register`, user, requestOptions);
 }
 
-function getAll() {
+function getAll(page) {
     const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
     };
-
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    let queryPage = page != null ? '?page=' + page : ''
+    return axios.get(`${config.apiUrl}/users${queryPage}`, null, requestOptions);
 }
 
 

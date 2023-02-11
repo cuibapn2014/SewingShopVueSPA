@@ -6,22 +6,23 @@ import Home from "../views/admin/Home.vue"
 import Login from "../views/auth/Login.vue"
 import Register from "../views/auth/Register.vue"
 import Order from "../views/admin/Order.vue"
+import User from "../views/admin/User.vue"
 import Customer from "../views/admin/Customer.vue"
 import Provider from "../views/admin/Provider.vue"
 import Finance from "../views/admin/Finance.vue"
 import Task from "../views/admin/Task.vue"
 import Ingredient from "../views/admin/Ingredient.vue"
 import Product from "../views/admin/Product.vue"
+import WarehouseImport from "../views/admin/WarehouseImport.vue"
+import WarehouseExport from "../views/admin/WarehouseExport.vue"
 import ForgotPassword from '../views/auth/ForgotPassword.vue'
 import ResetPassword from '../views/auth/ResetPassword.vue'
 import BaseLayout from '../components/layouts/BaseLayout.vue'
 
-const routes = [
-    {
+const routes = [{
         path: '/',
         component: BaseLayout,
-        children:[
-            {
+        children: [{
                 path: '/dashboard',
                 component: Home,
                 name: 'home'
@@ -60,9 +61,24 @@ const routes = [
                 path: '/product',
                 component: Product,
                 name: 'product'
+            },
+            {
+                path: '/warehouse-import',
+                component: WarehouseImport,
+                name: 'warehouse-import'
+            },
+            {
+                path: '/warehouse-export',
+                component: WarehouseExport,
+                name: 'warehouse-export'
+            },
+            {
+                path: '/user',
+                component: User,
+                name: 'user'
             }
         ],
-        meta:{
+        meta: {
             animateName: "float-up",
         }
     },
@@ -70,7 +86,7 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
-        meta:{
+        meta: {
             animateName: "float"
         }
     },
@@ -91,7 +107,7 @@ const routes = [
         path: '/register',
         name: 'register',
         component: Register,
-        meta:{
+        meta: {
             animateName: "float"
         }
     },
@@ -99,7 +115,7 @@ const routes = [
         path: '/forgot-password',
         name: 'forgot-password',
         component: ForgotPassword,
-        meta:{
+        meta: {
             animateName: "float"
         }
     },
@@ -107,11 +123,11 @@ const routes = [
         path: '/reset-password/:token',
         name: 'reset-password',
         component: ResetPassword,
-        meta:{
+        meta: {
             animateName: "float"
         },
         beforeEnter: (to, from, next) => {
-            if(to.query.email){
+            if (to.query.email) {
                 next()
             }
             next('/login')
@@ -133,7 +149,7 @@ router.beforeEach((to, from, next) => {
         return next('/login');
     }
 
-    if(publicPages[0].includes(to.path) && loggedIn){
+    if (publicPages[0].includes(to.path) && loggedIn) {
         return next('/dashboard');
     }
 
