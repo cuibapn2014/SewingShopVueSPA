@@ -66,12 +66,14 @@
                             </button> -->
 
                         <p class="mt-4">
-                            <router-link to="/forgot-password" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+                            <router-link to="/forgot-password"
+                                class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
                                 Quên mật khẩu?
                             </router-link>
                         </p>
                         <p class="mt-1">
-                            <router-link to="/register" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+                            <router-link to="/register"
+                                class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
                                 Tạo tài khoản
                             </router-link>
                         </p>
@@ -136,11 +138,15 @@ export default {
                 this.$store.dispatch('account/login', this.credentials).then(() => {
                     this.$router.push('/dashboard')
                 }).catch(err => {
-                    toast.error("Lỗi không thể đăng nhập", {
-                        position: toast.POSITION.TOP_RIGHT,
-                        theme: toast.THEME.COLORED,
-                        pauseOnHover: false
+                    const error = err.response.data
+                    Object.keys(error).forEach(er => {
+                        toast.error(error[er][0], {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: toast.THEME.COLORED,
+                            pauseOnHover: false
+                        })
                     })
+
                 }).then(() => {
                     this.isSubmit = false
                 })
