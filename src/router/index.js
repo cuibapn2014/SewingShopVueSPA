@@ -28,72 +28,114 @@ const routes = [{
         children: [{
                 path: '/dashboard',
                 component: Home,
-                name: 'home'
+                name: 'home',
+                meta: {
+                    title: "Bảng điều khiển"
+                }
             },
             {
                 path: '/order',
                 component: Order,
-                name: 'order'
+                name: 'order',
+                meta: {
+                    title: "Đơn hàng"
+                }
             },
             {
                 path: '/customer',
                 component: Customer,
-                name: 'customer'
+                name: 'customer',
+                meta: {
+                    title: "Khách hàng"
+                }
             },
             {
                 path: '/provider',
                 component: Provider,
-                name: 'provider'
+                name: 'provider',
+                meta: {
+                    title: "Nhà cung cấp"
+                }
             },
             {
                 path: '/task',
                 component: Task,
-                name: 'task'
+                name: 'task',
+                meta: {
+                    title: "Công việc"
+                }
             },
             {
                 path: '/finance',
                 component: Finance,
-                name: 'finance'
+                name: 'finance',
+                meta: {
+                    title: "Tài chính"
+                }
             },
             {
                 path: '/ingredient',
                 component: Ingredient,
-                name: 'ingredient'
+                name: 'ingredient',
+                meta: {
+                    title: "Nguyên phụ liệu"
+                }
             },
             {
                 path: '/product',
                 component: Product,
-                name: 'product'
+                name: 'product',
+                meta: {
+                    title: "Thành phẩm"
+                }
             },
             {
                 path: '/warehouse-import',
                 component: WarehouseImport,
-                name: 'warehouse-import'
+                name: 'warehouse-import',
+                meta: {
+                    title: "Nhập kho"
+                }
             },
             {
                 path: '/warehouse-export',
                 component: WarehouseExport,
-                name: 'warehouse-export'
+                name: 'warehouse-export',
+                meta: {
+                    title: "Xuất kho"
+                }
             },
             {
                 path: '/user',
                 component: User,
-                name: 'user'
+                name: 'user',
+                meta: {
+                    title: "Nhân sự"
+                }
             },
             {
                 path: '/production-suggest',
                 component: ProductionRequest,
-                name: 'production-suggest'
+                name: 'production-suggest',
+                meta: {
+                    title: "Đề nghị sản xuất"
+                }
             },
             {
                 path: '/productions',
                 component: Production,
-                name: 'productions'
+                name: 'productions',
+                meta: {
+                    title: "Lệnh sản xuất"
+                }
             },
             {
                 path: '/purchase-remind',
                 component: PurchaseRemind,
-                name: 'purchase-remind'
+                name: 'purchase-remind',
+                meta: {
+                    title: "Đề xuất mua hàng"
+                }
             }
         ],
         meta: {
@@ -170,7 +212,10 @@ router.beforeEach((to, from, next) => {
     if (publicPages[0].includes(to.path) && loggedIn) {
         return next('/dashboard');
     }
-
+    document.title = to.meta.title
+    meta: {
+        title: ""
+    }
     next()
 })
 export default router
