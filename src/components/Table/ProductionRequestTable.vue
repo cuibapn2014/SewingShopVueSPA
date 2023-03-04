@@ -72,7 +72,7 @@
                     {{ item.code }}
                 </td>
                 <td class="px-3 py-3 text-sm">
-                    {{ item.detail_order_id > 0 ? 'Sản xuất theo đơn' : 'Sản xuất lưu kho' }}
+                    {{ item.detail_order_id > 0 ? 'SX theo đơn' : 'SX lưu kho' }}
                 </td>
                 <td class="px-3 py-3 text-sm ">
                     {{ item.product.Ten }}

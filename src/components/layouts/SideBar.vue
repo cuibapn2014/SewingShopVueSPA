@@ -12,7 +12,7 @@
           ">
     <div class="py-4 text-gray-500 dark:text-gray-400">
       <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200">
-        MyProject
+        {{ this.project_name }}
       </a>
       <ul class="mt-6">
         <li class="cursor-pointer relative px-6 py-3">
@@ -545,7 +545,7 @@
             " :class="{ 'z-[60]': isSideMenuOpen }" v-show="isSideMenuOpen" @keydown.escape="closeSideMenu">
       <div class="py-4 text-gray-500 dark:text-gray-400">
         <router-link class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" to="/dashboard" @click="closeSideMenu()">
-          MyProject
+          {{ this.project_name }}
         </router-link>
         <ul class="mt-6">
           <li class="cursor-pointer relative px-6 py-3">
@@ -1118,6 +1118,7 @@ export default {
   },
   data() {
     return {
+      project_name: import.meta.env.VITE_PROJECT,
       isActive: this.$route.path,
       isSideMenuOpen: false,
       isSalesMenuOpen: false,
