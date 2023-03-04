@@ -13,6 +13,9 @@ import Finance from "../views/admin/Finance.vue"
 import Task from "../views/admin/Task.vue"
 import Ingredient from "../views/admin/Ingredient.vue"
 import Product from "../views/admin/Product.vue"
+import ProductionRequest from "../views/admin/ProductionRequest.vue"
+import Production from "../views/admin/Production.vue"
+import PurchaseRemind from "../views/admin/PurchaseRemind.vue"
 import WarehouseImport from "../views/admin/WarehouseImport.vue"
 import WarehouseExport from "../views/admin/WarehouseExport.vue"
 import ForgotPassword from '../views/auth/ForgotPassword.vue'
@@ -76,6 +79,21 @@ const routes = [{
                 path: '/user',
                 component: User,
                 name: 'user'
+            },
+            {
+                path: '/production-suggest',
+                component: ProductionRequest,
+                name: 'production-suggest'
+            },
+            {
+                path: '/productions',
+                component: Production,
+                name: 'productions'
+            },
+            {
+                path: '/purchase-remind',
+                component: PurchaseRemind,
+                name: 'purchase-remind'
             }
         ],
         meta: {

@@ -14,7 +14,7 @@
         </svg>
         <span class="mx-1">Có {{ this.dataAnalytic?.orderWarning }} đơn hàng sắp đến hạn giao</span>
       </p>
-      <router-link tag="a" to="/order" class="
+      <router-link to="/order" class="
           flex
           absolute
           top-3

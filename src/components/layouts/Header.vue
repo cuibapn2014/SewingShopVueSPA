@@ -1,47 +1,47 @@
 <template>
   <div class="
     
-          container
+            container
     
-          flex
+            flex
     
-          items-center
+            items-center
     
-          lg:justify-end
+            lg:justify-end
     
-          justify-between
+            justify-between
     
-          py-2
+            py-2
     
-          h-full
+            h-full
     
-          px-6
+            px-6
     
-          mx-auto
+            mx-auto
     
-          text-purple-600
+            text-purple-600
     
-          dark:text-purple-300
+            dark:text-purple-300
     
-        ">
+          ">
 
     <!-- Mobile hamburger -->
 
     <button class="
     
-            p-1
+              p-1
     
-            mr-5
+              mr-5
     
-            -ml-1
+              -ml-1
     
-            rounded-md
+              rounded-md
     
-            md:hidden
+              md:hidden
     
-            focus:outline-none focus:shadow-outline-purple
+              focus:outline-none focus:shadow-outline-purple
     
-          " @click="toggleSideBar()" aria-label="Menu">
+            " @click="toggleSideBar()" aria-label="Menu">
 
       <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
 
@@ -73,45 +73,45 @@
 
         <input class="
     
-                w-full
+                  w-full
     
-                pl-8
+                  pl-8
     
-                pr-2
+                  pr-2
     
-                text-sm text-gray-700
+                  text-sm text-gray-700
     
-                placeholder-gray-600
+                  placeholder-gray-600
     
-                bg-gray-100
+                  bg-gray-100
     
-                border-0
+                  border-0
     
-                rounded-md
+                  rounded-md
     
-                dark:placeholder-gray-500
+                  dark:placeholder-gray-500
     
-                dark:focus:shadow-outline-gray
+                  dark:focus:shadow-outline-gray
     
-                dark:focus:placeholder-gray-600
+                  dark:focus:placeholder-gray-600
     
-                dark:bg-gray-700
+                  dark:bg-gray-700
     
-                dark:text-gray-200
+                  dark:text-gray-200
     
-                focus:placeholder-gray-500
+                  focus:placeholder-gray-500
     
-                focus:bg-white
+                  focus:bg-white
     
-                focus:border-purple-300
+                  focus:border-purple-300
     
-                focus:outline-none
+                  focus:outline-none
     
-                focus:shadow-outline-purple
+                  focus:shadow-outline-purple
     
-                form-input
+                  form-input
     
-              " type="text" placeholder="Nhấp phím [/] để bắt đầu tìm kiếm" ref="search_input" aria-label="Search" />
+                " type="text" placeholder="Nhấp phím [/] để bắt đầu tìm kiếm" ref="search_input" aria-label="Search" />
 
       </div>
 
@@ -148,11 +148,11 @@
       <!-- Notifications menu -->
       <li class="relative">
         <button class="
-            relative
-            align-middle
-            rounded-md
-            focus:outline-none focus:shadow-outline-purple
-          " @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications"
+              relative
+              align-middle
+              rounded-md
+              focus:outline-none focus:shadow-outline-purple
+            " @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications"
           v-on-clickaway="closeNotificationsMenu" aria-haspopup="true">
           <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -161,116 +161,116 @@
           </svg>
           <!-- Notification badge -->
           <span aria-hidden="true" v-if="this.countTask > 0" class="
-              absolute
-              top-0
-              right-0
-              inline-block
-              w-3
-              h-3
-              transform
-              translate-x-1
-              -translate-y-1
-              bg-red-600
-              border-2 border-white
-              rounded-full
-              dark:border-gray-800
-            "></span>
+                absolute
+                top-0
+                right-0
+                inline-block
+                w-3
+                h-3
+                transform
+                translate-x-1
+                -translate-y-1
+                bg-red-600
+                border-2 border-white
+                rounded-full
+                dark:border-gray-800
+              "></span>
         </button>
         <Transition leave-from-class="transition opacity-100" leave-to-class="opacity-0">
           <template v-if="isNotificationsMenuOpen">
             <ul v-click-away="this.closeNotificationsMenu" @keydown.escape="this.closeNotificationsMenu" class="
     
-                    absolute
+                      absolute
     
-                    right-0
+                      right-0
     
-                    w-56
+                      w-56
     
-                    p-2
+                      p-2
     
-                    mt-2
+                      mt-2
     
-                    space-y-2
+                      space-y-2
     
-                    text-gray-600
+                      text-gray-600
     
-                    bg-[#ffffff]
+                      bg-[#ffffff]
     
-                    border border-gray-100
+                      border border-gray-100
     
-                    rounded-md
+                      rounded-md
     
-                    shadow-md
+                      shadow-md
     
-                    dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700
+                      dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700
     
-                    ease-in
+                      ease-in
     
-                    duration-150
+                      duration-150
     
-                  ">
+                    ">
 
               <li class="flex">
 
                 <a class="
     
-                        inline-flex
-    
-                        items-center
-    
-                        justify-between
-    
-                        w-full
-    
-                        px-2
-    
-                        py-1
-    
-                        text-sm
-    
-                        font-semibold
-    
-                        transition-colors
-    
-                        duration-150
-    
-                        rounded-md
-    
-                        hover:bg-gray-100 hover:text-gray-800
-    
-                        dark:hover:bg-gray-800 dark:hover:text-gray-200
-    
-                      " href="">
-
-                  <span>Công việc</span>
-
-                  <span v-if="false" class="
-    
                           inline-flex
     
                           items-center
     
-                          justify-center
+                          justify-between
+    
+                          w-full
     
                           px-2
     
                           py-1
     
-                          text-xs
+                          text-sm
     
-                          font-bold
+                          font-semibold
     
-                          leading-none
+                          transition-colors
     
-                          text-red-600
+                          duration-150
     
-                          bg-red-100
+                          rounded-md
     
-                          rounded-full
+                          hover:bg-gray-100 hover:text-gray-800
     
-                          dark:text-red-100 dark:bg-red-600
+                          dark:hover:bg-gray-800 dark:hover:text-gray-200
     
-                        ">
+                        " href="">
+
+                  <span>Công việc</span>
+
+                  <span v-if="false" class="
+    
+                            inline-flex
+    
+                            items-center
+    
+                            justify-center
+    
+                            px-2
+    
+                            py-1
+    
+                            text-xs
+    
+                            font-bold
+    
+                            leading-none
+    
+                            text-red-600
+    
+                            bg-red-100
+    
+                            rounded-full
+    
+                            dark:text-red-100 dark:bg-red-600
+    
+                          ">
 
                   </span>
 
@@ -282,63 +282,63 @@
 
                 <a class="
     
-                        inline-flex
-    
-                        items-center
-    
-                        justify-between
-    
-                        w-full
-    
-                        px-2
-    
-                        py-1
-    
-                        text-sm
-    
-                        font-semibold
-    
-                        transition-colors
-    
-                        duration-150
-    
-                        rounded-md
-    
-                        hover:bg-gray-100 hover:text-gray-800
-    
-                        dark:hover:bg-gray-800 dark:hover:text-gray-200
-    
-                      " href="">
-
-                  <span>Cảnh báo đơn hàng</span>
-
-                  <span v-if="false" class="
-    
                           inline-flex
     
                           items-center
     
-                          justify-center
+                          justify-between
+    
+                          w-full
     
                           px-2
     
                           py-1
     
-                          text-xs
+                          text-sm
     
-                          font-bold
+                          font-semibold
     
-                          leading-none
+                          transition-colors
     
-                          text-red-600
+                          duration-150
     
-                          bg-red-100
+                          rounded-md
     
-                          rounded-full
+                          hover:bg-gray-100 hover:text-gray-800
     
-                          dark:text-red-100 dark:bg-red-600
+                          dark:hover:bg-gray-800 dark:hover:text-gray-200
     
-                        ">
+                        " href="">
+
+                  <span>Cảnh báo đơn hàng</span>
+
+                  <span v-if="false" class="
+    
+                            inline-flex
+    
+                            items-center
+    
+                            justify-center
+    
+                            px-2
+    
+                            py-1
+    
+                            text-xs
+    
+                            font-bold
+    
+                            leading-none
+    
+                            text-red-600
+    
+                            bg-red-100
+    
+                            rounded-full
+    
+                            dark:text-red-100 dark:bg-red-600
+    
+                          ">
 
                     0
 
@@ -355,82 +355,82 @@
       <!-- Profile menu -->
       <li class="relative">
         <button class="
-            align-middle
-            rounded-full
-            focus:shadow-outline-purple focus:outline-none
-          " @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
+              align-middle
+              rounded-full
+              focus:shadow-outline-purple focus:outline-none
+            " @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
           v-on-clickaway="closeProfileMenu" aria-haspopup="true">
-          <img class="object-cover w-8 h-8 rounded-full" :src="'http://myproject.com/img/user/' + this.user?.image"
-            alt="" aria-hidden="true" loading="lazy"/>
+          <img class="object-cover w-8 h-8 rounded-full" :src="'http://myproject.com/img/user/' + this.user?.image" alt=""
+            aria-hidden="true" loading="lazy" />
         </button>
         <Transition leave-from-class="transition opacity-100" leave-to-class="opacity-0">
           <template v-if="isProfileMenuOpen">
             <ul v-click-away="closeProfileMenu" @keydown.escape="closeProfileMenu" class="
     
-                    absolute
+                      absolute
     
-                    right-0
+                      right-0
     
-                    w-56
+                      w-56
     
-                    p-2
+                      p-2
     
-                    mt-2
+                      mt-2
     
-                    space-y-2
+                      space-y-2
     
-                    text-gray-600
+                      text-gray-600
     
-                    bg-[#ffffff]
+                      bg-[#ffffff]
     
-                    border border-gray-100
+                      border border-gray-100
     
-                    rounded-md
+                      rounded-md
     
-                    shadow-md
+                      shadow-md
     
-                    dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700
+                      dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700
     
-                    ease-in
+                      ease-in
     
-                    duration-150
+                      duration-150
     
-                  " aria-label="submenu">
+                    " aria-label="submenu">
 
               <li class="flex">
 
                 <a class="
     
-                        inline-flex
+                          inline-flex
     
-                        items-center
+                          items-center
     
-                        cursor-pointer
+                          cursor-pointer
     
-                        w-full
+                          w-full
     
-                        px-2
+                          px-2
     
-                        py-1
+                          py-1
     
-                        text-sm
+                          text-sm
     
-                        font-semibold
+                          font-semibold
     
-                        transition-colors
+                          transition-colors
     
-                        duration-150
+                          duration-150
     
-                        rounded-md
+                          rounded-md
     
-                        hover:bg-gray-100 hover:text-gray-800
+                          hover:bg-gray-100 hover:text-gray-800
     
-                        dark:hover:bg-gray-800 dark:hover:text-gray-200
+                          dark:hover:bg-gray-800 dark:hover:text-gray-200
     
-                      " @click="openModal">
+                        " @click="openModal">
 
-                  <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
 
                     <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
 
@@ -446,33 +446,33 @@
 
                 <a class="
     
-                        inline-flex
+                          inline-flex
     
-                        items-center
+                          items-center
     
-                        cursor-pointer
+                          cursor-pointer
     
-                        w-full
+                          w-full
     
-                        px-2
+                          px-2
     
-                        py-1
+                          py-1
     
-                        text-sm
+                          text-sm
     
-                        font-semibold
+                          font-semibold
     
-                        transition-colors
+                          transition-colors
     
-                        duration-150
+                          duration-150
     
-                        rounded-md
+                          rounded-md
     
-                        hover:bg-gray-100 hover:text-gray-800
+                          hover:bg-gray-100 hover:text-gray-800
     
-                        dark:hover:bg-gray-800 dark:hover:text-gray-200
+                          dark:hover:bg-gray-800 dark:hover:text-gray-200
     
-                      " @click="openSettingModal">
+                        " @click="openSettingModal">
 
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
@@ -520,36 +520,36 @@
 
                 <a class="
     
-                        inline-flex
+                          inline-flex
     
-                        items-center
+                          items-center
     
-                        cursor-pointer
+                          cursor-pointer
     
-                        w-full
+                          w-full
     
-                        px-2
+                          px-2
     
-                        py-1
+                          py-1
     
-                        text-sm
+                          text-sm
     
-                        font-semibold
+                          font-semibold
     
-                        transition-colors
+                          transition-colors
     
-                        duration-150
+                          duration-150
     
-                        rounded-md
+                          rounded-md
     
-                        hover:bg-gray-100 hover:text-gray-800
+                          hover:bg-gray-100 hover:text-gray-800
     
-                        dark:hover:bg-gray-800 dark:hover:text-gray-200
+                          dark:hover:bg-gray-800 dark:hover:text-gray-200
     
-                      " @click="logout">
+                        " @click="logout">
 
-                  <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
 
                     <path
                       d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
@@ -581,7 +581,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   created() {
-    window.addEventListener('keydown', e => {
+    window.addEventListener('keyup', e => {
       if (e.key == '/')
         this.$refs.search_input.focus()
     })
@@ -681,6 +681,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>
