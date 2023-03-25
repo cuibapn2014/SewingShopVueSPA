@@ -360,7 +360,7 @@
               focus:shadow-outline-purple focus:outline-none
             " @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
           v-on-clickaway="closeProfileMenu" aria-haspopup="true">
-          <img class="object-cover w-8 h-8 rounded-full" :src="'http://myproject.com/img/user/' + this.user?.image" alt=""
+          <img class="object-cover w-8 h-8 rounded-full" :src="this.base_url + '/img/user/' + this.user?.image" alt=""
             aria-hidden="true" loading="lazy" />
         </button>
         <Transition leave-from-class="transition opacity-100" leave-to-class="opacity-0">
@@ -578,6 +578,7 @@ import ProfileModal from '../Modal/ProfileModal.vue';
 import SettingModal from '../Modal/SettingModal.vue';
 import 'vue3-toastify/dist/index.css';
 import { mapGetters } from 'vuex'
+import { config } from '../../helpers/config';
 
 export default {
   created() {
@@ -600,6 +601,7 @@ export default {
   components: { ProfileModal, SettingModal },
   data() {
     return {
+      base_url: config.baseUrl,
       isNotificationsMenuOpen: false,
       isProfileMenuOpen: false,
       dark: this.getThemeFromLocalStorage(),

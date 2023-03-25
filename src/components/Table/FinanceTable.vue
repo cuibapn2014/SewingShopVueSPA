@@ -140,7 +140,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="9" v-if="renderData.data?.data.length <= 0"
+                <td colspan="11" v-if="renderData.data?.data.length <= 0"
                     class="text-sm text-center py-4 text-gray-800 dark:text-gray-200">Không tìm thấy dữ liệu nào</td>
             </tr>
         </BaseTable>

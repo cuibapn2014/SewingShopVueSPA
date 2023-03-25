@@ -1154,4 +1154,8 @@ export default {
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+li{
+  user-select: none;
+}
+</style>

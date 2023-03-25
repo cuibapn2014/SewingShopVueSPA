@@ -9,7 +9,7 @@
 <script>
 import BaseLayout from "../../components/layouts/BaseLayout.vue"
 import WarehouseExportTable from "../../components/Table/WarehouseExportTable.vue";
-import { warehouseExportService } from "../../services/WarehouseExport.service"
+import { warehouseExportService } from "../../services/warehouseExport.service"
 import emitter from 'tiny-emitter/instance'
 
 export default {

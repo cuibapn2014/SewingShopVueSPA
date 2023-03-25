@@ -1,3 +1,4 @@
 export const config = {
-    apiUrl: 'https://myproject.com/api'
+    apiUrl: `${import.meta.env.VITE_API_URL}/api`,
+    baseUrl: import.meta.env.VITE_API_URL
 }

@@ -75,6 +75,7 @@ export default {
         let logined = this.$store.getters.isLoggedIn
         if (logined)
             this.$router.push('/dashboard')
+        document.title = "Đăng ký"
     },
     data() {
         return {
