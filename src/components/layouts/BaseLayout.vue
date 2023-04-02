@@ -41,7 +41,8 @@ export default {
         },
         closeSideMenu() {
             this.isSideMenuOpen = false
-        }
+        },
+        
     }
 }
 </script>

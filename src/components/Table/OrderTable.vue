@@ -1,9 +1,16 @@
 <template>
     <BaseTable :field_list="this.fieldList" :data_paginate="dataPaginate" :path_current="'order'">
-        <div v-if="is_load"
-            class="bg-gray-200 dark:bg-gray-800 dark:bg-opacity-80 bg-opacity-80 w-full h-full absolute top-0 left-0 z-10 flex items-center justify-center ">
-            <font-awesome-icon class="animate-spin w-[4rem] h-[4rem] text-indigo-500" icon="fa-solid fa-circle-notch" />
-        </div>
+        <transition enter-from-class="opacity-0" enter-to-class="opacity-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
+            <div
+            v-show="is_load"
+            class="transition ease-in duration-300 bg-gray-200 dark:bg-gray-800 dark:bg-opacity-80 bg-opacity-80 w-full h-full absolute top-0 left-0 z-10 flex items-center justify-center"
+            >
+            <font-awesome-icon
+                class="animate-spin w-[4rem] h-[4rem] text-indigo-500"
+                icon="fa-solid fa-circle-notch"
+            />
+            </div>
+        </transition>
         <tr v-for="(item, idx) in renderData.data?.data" :key="item.id" 
         class="text-gray-700 dark:text-gray-400 hover:bg-indigo-300 hover:bg-opacity-5 duration-150">
             <td class="px-4 py-3 text-sm">
