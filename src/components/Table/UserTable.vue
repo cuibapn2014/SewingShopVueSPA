@@ -59,7 +59,8 @@
                 </button>
                 <button title="Xóa"
                     class="flex items-center float-left justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                    aria-label="Delete">
+                    aria-label="Delete"
+                    @click="this.openModal(item.id)">
                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
@@ -72,11 +73,19 @@
             <td colspan="9" v-if="renderData.data?.data.length <= 0"
                 class="text-sm text-center py-4 text-gray-800 dark:text-gray-200">Không tìm thấy dữ liệu nào</td>
         </tr>
+        <ConfirmDeleteModal
+        :is_open="this.isOpenModal"
+        @close_delete="this.handleEventDelete"
+        @confirm_delete="this.handleEventDelete"
+        />
     </BaseTable>
 </template>
 <script>
 import { config } from '../../helpers/config';
 import BaseTable from './BaseTable.vue';
+import ConfirmDeleteModal from "../Modal/ConfirmDeleteModal.vue";
+import { userService } from "../../services/user.service";
+import { toast } from "vue3-toastify";
 
 export default {
     props: {
@@ -84,7 +93,7 @@ export default {
         is_load: Boolean
     },
     components: {
-        BaseTable
+        BaseTable, ConfirmDeleteModal
     },
     computed: {
         renderData() {
@@ -113,7 +122,9 @@ export default {
                 'Ngày tham gia'
             ],
             index: this.data_list?.data.from || 1,
-            url: config.apiUrl.split('/api')[0]
+            url: config.apiUrl.split('/api')[0],
+            isOpenModal: false,
+            deleteId: null,
         }
     },
     methods: {
@@ -128,7 +139,46 @@ export default {
                 case 2: return "Tạm khóa";
                 case 3: return "Ngưng sử dụng";
             }
-        }
+        },
+    setEditId(id) {
+      this.$emit("edit_user", id);
+    },
+    openModal(id) {
+      this.isOpenModal = true;
+      this.deleteId = id;
+    },
+    async handleEventDelete(data) {
+      if (data) {
+        await userService
+          .deleteById(this.deleteId)
+          .then((res) => {
+            if (res.data.msg) {
+              toast.success(`Xóa người dùng thành công!`, {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: toast.THEME.COLORED,
+                pauseOnHover: false,
+              });
+              this.$emit("delete_user");
+            }
+          })
+          .catch((err) => {
+            const error = err.response
+            let message = `Đã xảy ra lỗi! Vui lòng kiểm tra lại`
+            switch(error.status){
+                case 404: message = "Lỗi! Không tìm thấy dữ liệu cần xóa";break;
+                case 403: message = "Lỗi! Không có quyền xóa";break;
+                case 500: message = "Lỗi! Vui lòng thử lại sau";break;
+            }
+            toast.error(message, {
+              position: toast.POSITION.TOP_RIGHT,
+              theme: toast.THEME.COLORED,
+              pauseOnHover: false,
+            });
+          });
+      }
+      this.isOpenModal = false;
+      this.deleteId = null;
+    },
     }
 }
 </script>

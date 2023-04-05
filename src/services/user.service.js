@@ -20,7 +20,8 @@ export const userService = {
     update,
     changePassword,
     forgotPassword,
-    getAll
+    getAll,
+    deleteById
 }
 
 function login(user) {
@@ -57,15 +58,19 @@ async function register(user) {
     return await axios.post(`${config.apiUrl}/auth/register`, user, requestOptions);
 }
 
-function getAll(page) {
+function getAll(page, data) {
     const requestOptions = {
         headers: {
             ...authHeader(),
             'Content-Type': 'application/json'
         }
     };
-    let queryPage = page != null ? '?page=' + page : ''
-    return axios.get(`${config.apiUrl}/users${queryPage}`, null, requestOptions);
+    return axios.get(`${config.apiUrl}/users`, {
+        params:{
+            ...data,
+            page: page
+        }
+    }, requestOptions);
 }
 
 
@@ -148,4 +153,15 @@ async function changePassword(dataUser) {
 
 async function forgotPassword(email){
     return await axios.post(`${config.apiUrl}/auth/forgot-password`, email)
+}
+
+async function deleteById(id){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+
+    return axios.delete(`${config.apiUrl}/users/delete/${id}`, null, requestOptions);
 }

@@ -1,51 +1,5 @@
 <template>
   <div>
-    <div class="flex justify-end py-2">
-      <form method="GET" class="flex">
-        <input
-          class="block w-48 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray rounded-l-md form-input"
-          type="text"
-          name="keyword"
-          placeholder="Nhập tìm kiếm.."
-        />
-        <button
-          class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-      </form>
-      <button
-        onclick="location.href='{{ route('admin.customer.create') }}'"
-        class="flex items-center px-2 py-2 mx-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-      >
-        Thêm mới
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"
-          />
-        </svg>
-      </button>
-    </div>
     <BaseTable
       :field_list="this.fieldList"
       :data_paginate="dataPaginate"
@@ -89,7 +43,7 @@
         </td>
         <td class="px-4 py-3 text-sm">
           <img
-            v-tooltip.top-start="'{{ item.user.name }}'"
+            v-tooltip.top-start="item.user.name"
             :src="item.user && `${this.url}/img/user/${item.user.image}`"
             class="h-12 w-12 object-cover object-center rounded-full"
           />
@@ -106,6 +60,7 @@
             title="Chỉnh sửa"
             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
             aria-label="Edit"
+            @click="this.setEditId(item.id)"
           >
             <svg
               class="w-5 h-5"
@@ -121,8 +76,7 @@
           <button
             v-tooltip="'Xóa'"
             title="Xóa"
-            @click="openModal(item.id)"
-            :key="item.id"
+            @click="this.openModal(item.id)"
             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
             aria-label="Delete"
           >
@@ -151,11 +105,19 @@
         </td>
       </tr>
     </BaseTable>
+    <ConfirmDeleteModal
+      :is_open="this.isOpenModal"
+      @close_delete="this.handleEventDelete"
+      @confirm_delete="this.handleEventDelete"
+    />
   </div>
 </template>
 <script>
 import { config } from "../../helpers/config";
 import BaseTable from "./BaseTable.vue";
+import ConfirmDeleteModal from "../Modal/ConfirmDeleteModal.vue";
+import { customerService } from "../../services/customer.service";
+import { toast } from "vue3-toastify";
 
 export default {
   props: {
@@ -163,7 +125,7 @@ export default {
     is_load: Boolean,
   },
   components: {
-    BaseTable,
+    BaseTable, ConfirmDeleteModal
   },
   computed: {
     renderData() {
@@ -190,6 +152,8 @@ export default {
       ],
       index: this.data_list?.data.from || 1,
       url: config.apiUrl.split("/api")[0],
+      isOpenModal: false,
+      deleteId: null,
     };
   },
   methods: {
@@ -213,6 +177,38 @@ export default {
         case 5:
           return "Đã hủy";
       }
+    },
+    setEditId(id) {
+      this.$emit("edit_customer", id);
+    },
+    openModal(id) {
+      this.isOpenModal = true;
+      this.deleteId = id;
+    },
+    async handleEventDelete(data) {
+      if (data) {
+        await customerService
+          .deleteById(this.deleteId)
+          .then((res) => {
+            if (res.data.msg) {
+              toast.success(`Xóa khách hàng thành công!`, {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: toast.THEME.COLORED,
+                pauseOnHover: false,
+              });
+              this.$emit("delete_customer");
+            }
+          })
+          .catch((err) => {
+            toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
+              position: toast.POSITION.TOP_RIGHT,
+              theme: toast.THEME.COLORED,
+              pauseOnHover: false,
+            });
+          });
+      }
+      this.isOpenModal = false;
+      this.deleteId = null;
     },
   },
 };

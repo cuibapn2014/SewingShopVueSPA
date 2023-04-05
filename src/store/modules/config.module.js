@@ -1,6 +1,7 @@
+const baseUrl = import.meta.env.VITE_API_URL || process.env.VITE_API_URL
 export const config = {
     state: {
-        baseUrl: 'http://myproject.com/'
+        baseUrl: baseUrl + '/'
     },
     getters:{
         getBaseUrl(state){

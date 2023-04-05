@@ -136,7 +136,8 @@ export default {
             this.$emit('togglemodal', this.isOpenModal)
         },
         save(){
-            this.$emit('save_data')
+            if(!this.is_submit)
+                this.$emit('save_data')
         }
     }
 }
