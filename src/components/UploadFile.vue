@@ -1,0 +1,115 @@
+<template>
+  <div class="flex flex-row items-center justify-start input__image my-2">
+    <img
+      class="img__thumbnail w-16 h-16 rounded-lg mr-2 object-cover object-center z-50"
+      :src="
+        this.urlImg
+          ? this.urlImg
+          : this.baseUrl.concat('/') + 'img/placeholder.jpg'
+      "
+    />
+    <input
+      @change="handleChangeFile"
+      class="form-control first-line:block bg-clip-padding w-8/12 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+      ref="fileImage"
+      accept="image/*"
+      type="file"
+      name="image[]"
+    />
+    <!-- <button
+      type="button"
+      class="bg-gray-100 text-indigo-700 dark:bg-indigo-700 dark:text-white mx-2 rounded-lg p-1 cursor-pointer"
+      @click="this.handleReload"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+        />
+      </svg>
+    </button> -->
+    <button
+      v-if="this.pk_number > 0"
+      v-tooltip.top-start="'Xóa ảnh'"
+      type="button"
+      class="bg-gray-100 text-red-700 dark:bg-red-500 dark:text-white mx-2 rounded-lg p-1 cursor-pointer"
+      @click="this.closeInputFile()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </button>
+  </div>
+</template>
+<script lang="js">
+import mediumZoom from "medium-zoom";
+import { config } from "../helpers/config";
+import "../assets/css/tailwind.output.css"
+export default {
+  props:{
+    url_img: null,
+    pk_number: Number,
+    img_file: File
+  },
+  mounted() {
+    mediumZoom(document.querySelectorAll(".img__thumbnail"), {
+      background: "rgba(0,0,0,0.5)",
+    });
+  },
+  beforeUpdate(){
+    let input = this.$refs.fileImage
+    let dataTransfer = new DataTransfer()
+    if(this.img_file){
+      this.urlImg = URL.createObjectURL(this.img_file)
+      dataTransfer.items.add(this.img_file)
+    }else{
+      this.urlImg = null
+    }
+    input.files = dataTransfer.files
+  },
+  data() {
+    return {
+      urlImg: this.url_img,
+      baseUrl: config.baseUrl,
+    };
+  },
+  methods: {
+    handleChangeFile(e) {
+      const image = e.target.files[0];
+      this.urlImg = URL.createObjectURL(image);
+      this.$emit('change_image', {img: image, key: this.pk_number})
+    },
+    handleReload(e) {
+      e.preventDefault();
+      const input = this.$refs.fileImage;
+      input.type = "text";
+      input.type = "file";
+      this.urlImg = null;
+      this.$emit('change_image', {img: null, key: this.pk_number})
+    },
+    closeInputFile(){
+        this.$emit('less_input_file')
+    }
+  },
+};
+</script>
+<style scoped></style>
