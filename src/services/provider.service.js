@@ -10,7 +10,8 @@ export const providerService = {
     create,
     update,
     findById,
-    deleteById
+    deleteById,
+    getDataSelect
 }
 
 async function getDataAll(page = null, data = null){
@@ -24,6 +25,20 @@ async function getDataAll(page = null, data = null){
         params:{
             ...data,
             page: page
+        }
+    }, requestOptions);
+}
+
+async function getDataSelect(data = null){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.get(`${config.apiUrl}/provider/select`, {
+        params:{
+            ...data
         }
     }, requestOptions);
 }

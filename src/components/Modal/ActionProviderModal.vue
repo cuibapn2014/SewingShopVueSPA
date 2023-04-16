@@ -140,6 +140,7 @@ export default {
                 theme: toast.THEME.COLORED,
                 pauseOnHover: false,
               });
+              this.clearData()
               this.$emit("success_create");
             }
           })
@@ -164,6 +165,7 @@ export default {
                 theme: toast.THEME.COLORED,
                 pauseOnHover: false,
               });
+              this.clearData()
               this.$emit("success_create");
             }
           })
