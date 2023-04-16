@@ -25,6 +25,7 @@
           dark:bg-gray-800
           h-screen
           relative
+          flex flex-col
         " role="dialog" id="modal">
                 <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
                 <header class="flex justify-end">
@@ -49,7 +50,7 @@
                     </button>
                 </header>
                 <!-- Modal body -->
-                <div class="mt-4 mb-6">
+                <div class="mt-4 mb-6 pb-28 h-full overflow-y-auto">
                     <!-- Modal title -->
                     <p class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-300">
                         {{ title }}
@@ -71,6 +72,7 @@
             dark:bg-gray-800
             absolute bottom-0
             w-full
+            z-50
           ">
                     <button class="
               w-full
@@ -94,7 +96,7 @@
             " @click="this.closeModal()">
                         Đóng
                     </button>
-            <button @click.prevent="this.save()" class="mt-4 text-white px-4 py-2 rounded-lg border-0 bg-indigo-600 hover:bg-indigo-700 duration-150">
+            <button @click.prevent="this.save()" class="w-full text-white leading-5 py-5 sm:w-auto px-4 sm:py-2 rounded-lg border-0 bg-indigo-600 hover:bg-indigo-700 duration-150">
                 <font-awesome-icon v-if="is_submit" class="animate-spin"
                                     icon="fa-solid fa-circle-notch" />
                 Lưu
