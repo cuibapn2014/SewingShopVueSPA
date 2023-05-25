@@ -1,18 +1,23 @@
 <template>
   <div class="w-full relative" ref="select_custom">
     <label class="block text-sm my-2">
-      <span class="text-gray-700 dark:text-gray-400">{{ this.label }}</span>
+      <span class="text-gray-700 dark:text-gray-400">{{ this.label }}<span v-if="this.required" class="text-red-500">*</span></span>
+      <span class="text-red-700 dark:text-red-500 font-semibold mx-1">{{ this.error_message }}</span>
       <input
         class="block w-full mt-1 text-sm text-gray-700 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 select-none form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-        name="id_unit"
-        id="id_unit"
         type="text"
         aria-placeholder="Chọn đơn vị tính"
         v-model="this.textSelected"
-        @click="this.openResults"
-        @keyup="this.search"
+        @focus="this.openResults"
+        @input="this.search"
         ref="input_select"
         :placeholder="this.placeholder"
+        :disabled="this.disabled ?? false"
+      />
+      <input
+        type="hidden"
+        :name="name"
+        v-model="this.valueSelected"
       />
     </label>
     <transition
@@ -23,7 +28,7 @@
     >
       <div
         v-if="this.isShowOption"
-        class="duration-75 w-full max-h-52 dark:bg-gray-900 bg-white text-base rounded-b-md z-50 absolute cursor-pointer overflow-y-auto shadow-md"
+        class="duration-75 w-full max-h-52 dark:bg-gray-900 bg-white text-base rounded-b-md z-[51] absolute cursor-pointer overflow-y-auto shadow-md"
       >
         <li v-if="this.isSearch" class="text-center select-none p-2 text-gray-600 dark:text-gray-200">
           <font-awesome-icon
@@ -75,9 +80,14 @@ export default {
   props: {
     options: Array,
     selected: String,
+    value: Number,
     placeholder: String,
     label: String,
     delay_time: Number,
+    name: String,
+    error_message: String,
+    required: Boolean,
+    disabled: Boolean
   },
   mounted() {
     this.handleClickOutside();
@@ -87,6 +97,15 @@ export default {
       if (n.length <= 0) this.textSelected = "";
       this.isSearch = false;
     },
+    value: function(n, o) {
+      if(n) this.renderEdit();
+    }
+  },
+  updated(){
+    if(!this.isShowOption && this.textSelected == ''){
+      this.textSelected = this.selected
+      this.valueSelected = this.value
+    }
   },
   data() {
     return {
@@ -107,14 +126,14 @@ export default {
       this.$emit("select", value);
     },
     openResults(e) {
-      this.tempTxt = this.textSelected;
+      this.tempTxt = this.textSelected && this.textSelected.length <= 0 ? this.selected : this.textSelected;
       this.textSelected = "";
       this.isShowOption = true;
       this.$emit("search", "");
     },
     closeResults() {
       this.isShowOption = false;
-      this.textSelected = this.tempTxt == "" ? this.textSelected : this.tempTxt;
+      this.textSelected = this.tempTxt == "" && this.selected ? this.selected : this.tempTxt;
     },
     search(e) {
       clearTimeout(timer);
@@ -134,6 +153,12 @@ export default {
         if (e.target != select && e.target != li) this.closeResults();
       });
     },
+    renderEdit(){
+      if(!this.value) return
+      const txt = this.selected
+      this.textSelected = txt
+      this.valueSelected = this.value
+    }
   },
 };
 </script>
