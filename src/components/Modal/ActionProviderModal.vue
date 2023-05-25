@@ -90,6 +90,11 @@ export default {
         this.getDataById();
       }
     },
+    is_open_modal: function(n, o){
+      this.clearData()
+      this.id = this.id_provider ? this.id_provider : this.id
+      if(n) this.getDataById();
+    }
   },
   data() {
     return {
@@ -140,7 +145,6 @@ export default {
                 theme: toast.THEME.COLORED,
                 pauseOnHover: false,
               });
-              this.clearData()
               this.$emit("success_create");
             }
           })
@@ -165,7 +169,6 @@ export default {
                 theme: toast.THEME.COLORED,
                 pauseOnHover: false,
               });
-              this.clearData()
               this.$emit("success_create");
             }
           })

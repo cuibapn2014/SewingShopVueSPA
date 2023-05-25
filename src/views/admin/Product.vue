@@ -3,7 +3,7 @@
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
       Thành phẩm
     </h2>
-    <div class="flex justify-end py-2">
+    <div class="flex justify-end py-2 sticky top-0 z-10 bg-[#ffffff] dark:bg-gray-900">
       <form method="GET" @submit.prevent="this.searchSubmit()" class="flex mx-2">
         <input
           class="block w-48 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray rounded-l-md form-input"
@@ -68,13 +68,37 @@
           />
         </svg>
       </button>
+      <button
+        class="flex items-center px-2 py-2 mx-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+        @click="this.reload()"
+      >
+        Tải lại
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 ml-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+      </button>
     </div>
-    <ProductTable :data_list="this.dataList" :is_load="getIsLoad" />
+    <ProductTable 
+    :data_list="this.dataList" 
+    :is_load="getIsLoad" 
+    @edit_ingredient="this.setEditId"
+    @delete_ingredient="this.reFetchData()"/>
     <ActionProductModal
       :is_open_modal="this.isOpenModal"
       @togglemodal="this.closeModal"
       @success_create="this.reFetchData()"
-      :id_customer="this.editId"
+      :id_ingredient="this.editId"
     />
   </div>
 </template>
@@ -91,11 +115,11 @@ export default {
     BaseLayout, ProductTable, ActionProductModal
   },
   created() {
-    this.fetchDataOrder()
+    this.fetchDataProduct()
   },
   mounted() {
     emitter.on('pagechanged', async (data) => {
-      await this.fetchDataOrder(data)
+      await this.fetchDataProduct(data)
     })  
   },
   beforeUnmount() {
@@ -116,17 +140,24 @@ export default {
     }
   },
   methods: {
-    async fetchDataOrder(pageTo = null) {
-      this.isLoadData = true
-      const urlSearch = await new URLSearchParams(window.location.search)
-      let page = await urlSearch.has('page') ? (pageTo ?? urlSearch.get('page')) : (pageTo ?? 1)
-      const ingredient_type = 2
-      await ingredientService.getDataAll(page, ingredient_type).then(res => {
-        if (res.data.code == 200)
-          this.dataList = res.data
-      }).then(() => {
-        this.isLoadData = false
-      })
+    async fetchDataProduct(pageTo = null) {
+      this.isLoadData = true;
+      const urlSearch = await new URLSearchParams(window.location.search);
+      let page = (await urlSearch.has("page"))
+        ? pageTo ?? urlSearch.get("page")
+        : pageTo ?? 1;
+      const data = {
+        keyword: this.search,
+        type : 2
+      };
+      await ingredientService
+        .getDataAll(page, data)
+        .then((res) => {
+          if (res.data.code == 200) this.dataList = res.data;
+        })
+        .then(() => {
+          this.isLoadData = false;
+        });
     },
     closeModal(data) {
       this.isOpenModal = data;
@@ -135,7 +166,7 @@ export default {
       this.isOpenModal = true;
     },
     reFetchData() {
-      this.fetchDataIngredient();
+      this.fetchDataProduct();
       this.closeModal();
     },
     setEditId(id) {
@@ -144,12 +175,12 @@ export default {
     },
     searchSubmit() {
       if (this.search && this.search != "") {
-        this.fetchDataIngredient();
+        this.fetchDataProduct();
       }
     },
     reload() {
       this.search = null;
-      this.fetchDataIngredient();
+      this.fetchDataProduct();
     },
   }
 }
