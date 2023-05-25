@@ -46,25 +46,25 @@
         {{ item.Ten }}
       </td>
       <td class="px-4 py-3 text-sm">
-        {{ item.provider.name }}
+        {{ item.provider?.name }}
       </td>
       <td class="px-4 py-3 text-sm">
         {{ item.Gia.toLocaleString("vi") }}
       </td>
       <td class="px-4 py-3 text-sm">
-        {{ item.provider.address }}
+        {{ item.provider?.address }}
       </td>
       <td class="px-4 py-3 text-sm">
-        {{ item.provider.phone_number }}
+        {{ item.provider?.phone_number }}
       </td>
       <td class="px-4 py-3 text-sm">
-        {{ item.amount.toLocaleString("vi") }}
+        {{ item.amount.toLocaleString("vi") }} {{ item.unit_cal.name }}
       </td>
       <td class="px-4 py-3 text-sm">
-        {{ item.used_amount.toLocaleString("vi") }}
+        {{ item.used_amount.toLocaleString("vi") }} {{ item.unit_cal.name }}
       </td>
       <td class="px-4 py-3 text-sm">
-        {{ item.note }}
+        {{ item.GhiChu }}
       </td>
       <td class="px-4 py-3 text-sm flex items-center">
         <button
@@ -217,7 +217,7 @@ export default {
           .deleteById(this.deleteId)
           .then((res) => {
             if (res.data.msg) {
-              toast.success(`Xóa khách hàng thành công!`, {
+              toast.success(`Xóa thành công!`, {
                 position: toast.POSITION.TOP_RIGHT,
                 theme: toast.THEME.COLORED,
                 pauseOnHover: false,
