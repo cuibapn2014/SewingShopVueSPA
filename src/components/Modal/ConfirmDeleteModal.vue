@@ -7,7 +7,7 @@
   >
     <div
       v-show="this.isModalOpen"
-      class="fixed inset-0 z-30 flex items-end transition duration-150 bg-black bg-opacity-50 sm:items-center sm:justify-center"
+      class="fixed inset-0 z-[60] flex items-end transition duration-150 bg-black bg-opacity-50 sm:items-center sm:justify-center"
       id="backdrop-overlay"
       @click="this.closeModal()"
     >
