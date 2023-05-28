@@ -41,6 +41,7 @@
           :error_message="this.errors?.id_ingredient_type"
           :required="true"
           :value="this.data_edit?.ingredient_type?.id"
+          :allow_clear="true"
         />
         <AutoComplete
           name="stage"
@@ -52,6 +53,7 @@
           :error_message="this.errors?.stage"
           :value="this.data_edit?.stage_product?.id"
           :required="true"
+          :allow_clear="true"
         />
       <AutoComplete
           name="id_unit_cal"
@@ -63,6 +65,7 @@
           :error_message="this.errors?.id_unit_cal"
           :required="true"
           :value="this.data_edit?.unit_cal?.id"
+          :allow_clear="true"
         />
         <label class="block text-sm my-2">
           <span class="text-gray-700 dark:text-gray-400">Giá</span>
@@ -88,6 +91,7 @@
           @search="this.searchProvider"
           :error_message="this.errors?.provider_id"
           :value="this.data_edit?.provider?.id"
+          :allow_clear="true"
         />
       <label class="block my-2 text-sm">
         <span class="text-gray-700 dark:text-gray-400">Ghi chú</span>

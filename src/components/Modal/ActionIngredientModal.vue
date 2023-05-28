@@ -54,6 +54,7 @@
           :error_message="this.errors?.id_unit_cal"
           :required="true"
           :value="this.data_edit?.unit_cal?.id"
+          :allow_clear="true"
         />
         <label class="block text-sm my-2">
           <span class="text-gray-700 dark:text-gray-400">Giá</span>
@@ -79,6 +80,7 @@
           @search="this.searchProvider"
           :error_message="this.errors?.iprovider_id"
           :value="this.data_edit?.provider?.id"
+          :allow_clear="true"
         />
         <label class="block my-2 text-sm">
           <span class="text-gray-700 dark:text-gray-400">Ghi chú</span>
