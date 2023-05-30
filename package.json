@@ -18,6 +18,7 @@
     "axios": "^1.2.1",
     "floating-vue": "^2.0.0-beta.20",
     "medium-zoom": "^1.0.8",
+    "moment": "^2.29.4",
     "tiny-emitter": "^2.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.0.13",

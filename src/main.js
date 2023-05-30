@@ -7,6 +7,8 @@ import App from './App.vue'
 import VueClickAway from 'vue3-click-away'
 import store from './store'
 import router from './router'
+import moment from "moment"
+
 // import VTooltip from 'v-tooltip'
 import FloatingVue from 'floating-vue'
 
@@ -23,6 +25,10 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 library.add(faCircleNotch)
 
 const app = createApp(App)
+
+/* add moment */
+app.config.globalProperties.$moment = moment
+
 app.use(FloatingVue)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(VueClickAway)
