@@ -96,9 +96,6 @@ export default {
       type: Boolean
     }
   },
-  mounted() {
-    this.handleClickOutside();
-  },
   watch: {
     options: function (n, o) {
       if (n.length <= 0) this.textSelected = "";
@@ -108,11 +105,15 @@ export default {
       if(n) this.renderEdit();
     }
   },
+  mounted(){
+    this.renderEdit()
+  },
   updated(){
     if(!this.isShowOption && this.textSelected == ''){
       this.textSelected = this.selected
       this.valueSelected = this.value
     }
+    this.handleClickOutside();
   },
   computed: {
     isAllowClear(){
