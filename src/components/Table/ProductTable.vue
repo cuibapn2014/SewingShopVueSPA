@@ -47,24 +47,24 @@
             </td>
             <td class="px-4 py-3 text-sm flex items-center">
                 <button
-          v-tooltip="'Chỉnh sửa'"
-          title="Chỉnh sửa"
-          class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-          aria-label="Edit"
-          @click="this.setEditId(item.id)"
-        >
-          <svg
-            class="w-5 h-5"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-            ></path>
-          </svg>
-        </button>
-        <button
+                v-tooltip="'Chỉnh sửa'"
+                title="Chỉnh sửa"
+                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                aria-label="Edit"
+                @click="this.setEditId(item.id)"
+                >
+                <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                >
+                    <path
+                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+                    ></path>
+                </svg>
+            </button>
+        <!-- <button
           v-tooltip="'Xóa'"
           title="Xóa"
           class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
@@ -83,9 +83,9 @@
               clip-rule="evenodd"
             ></path>
           </svg>
-        </button>
-                <!-- <button v-tooltip="'Định mức'" title="Định mức"
-                                @click="openQuotaModal({{ json_encode($ingredient) }})"
+        </button> -->
+                <button v-tooltip="'Định mức'" title="Định mức"
+                @click="this.quotasClick(item.id)"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Quota">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
@@ -93,7 +93,7 @@
                                     <path
                                         d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
                                 </svg>
-                            </button> -->
+                            </button>
             </td>
         </tr>
         <tr>
@@ -105,12 +105,17 @@
         @close_delete="this.handleEventDelete"
         @confirm_delete="this.handleEventDelete"
         />
+        <QuotaModal 
+        :display="this.isQuotaOpen" 
+        :id_ingredient="this.id_ingredient"
+        @toggle="this.closeQuotaModal()"/>
     </BaseTable>
 </template>
 <script>
 import { config } from '../../helpers/config';
 import BaseTable from './BaseTable.vue';
 import ConfirmDeleteModal from "../Modal/ConfirmDeleteModal.vue";
+import QuotaModal from '../Modal/QuotaModal.vue';
 import { ingredientService } from "../../services/ingredient.service";
 import { toast } from "vue3-toastify";
 
@@ -120,7 +125,7 @@ export default {
         is_load: Boolean
     },
     components: {
-        BaseTable, ConfirmDeleteModal
+        BaseTable, ConfirmDeleteModal, QuotaModal
     },
     computed: {
         renderData() {
@@ -145,6 +150,8 @@ export default {
             url: config.apiUrl.split('/api')[0],
             isOpenModal: false,
             deleteId: null,
+            isQuotaOpen: false,
+            id_ingredient: null,
         }
     },
     methods: {
@@ -194,6 +201,14 @@ export default {
             this.isOpenModal = false;
             this.deleteId = null;
         },
+        quotasClick(id){
+            this.id_ingredient = id
+            this.isQuotaOpen = true
+        },
+        closeQuotaModal(){
+            this.isQuotaOpen = false
+            this.id_ingredient = null
+        }
     }
 }
 </script>

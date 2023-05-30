@@ -51,7 +51,7 @@
         <td class="px-4 py-3 text-sm">
           {{
             item.updated_at &&
-            new Date(item.updated_at).toLocaleDateString("vi-VN")
+            $moment(updated_at).format("DD/MM/YYYY")
           }}
         </td>
         <td class="px-4 py-3 text-sm flex items-center">
@@ -118,6 +118,7 @@ import BaseTable from "./BaseTable.vue";
 import ConfirmDeleteModal from "../Modal/ConfirmDeleteModal.vue";
 import { customerService } from "../../services/customer.service";
 import { toast } from "vue3-toastify";
+import moment from "moment"
 
 export default {
   props: {
