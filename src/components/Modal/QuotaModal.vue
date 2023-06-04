@@ -65,9 +65,9 @@
                   name="id_ingredient[]"
                   placeholder="Chọn nguyên vật liệu"
                   label="Nguyên vật liệu"
-                  :options="this.opt_ingredient"
+                  :options="this.opt_ingredient[item.id] ?? []"
                   :selected="item.ingredient?.Ten"
-                  @search="this.searchIngredient"
+                  @search="this.searchIngredient($event, item.id)"
                   :value="item.ingredient?.id"
                   :required="true"
                 />
@@ -200,7 +200,7 @@ export default {
       isSubmit: false,
       product: {},
       listQuota: [],
-      opt_ingredient: [],
+      opt_ingredient: {},
       errors: {},
     };
   },
@@ -216,29 +216,34 @@ export default {
           let data = res.data;
           this.product = data.product;
           this.listQuota = data.data;
-          this.opt_ingredient = data.ingredients;
+          // this.opt_ingredient = data.ingredients;
+          this.listQuota.forEach(item => {
+            this.opt_ingredient[item.id] = data.ingredients
+          })
         });
     },
-    async searchIngredient(data, selected) {
+    async searchIngredient(data, key, selected) {
       const term = {
         name: data,
       };
       await ingredientService.getDataBySelectBox(term).then((res) => {
         if (res.data.code == 200) {
-          this.opt_ingredient = res.data.data;
+          this.opt_ingredient[key] = res.data.data;
         }
       });
     },
     clearData() {
       this.product = {};
       this.listQuota = [];
-      this.opt_ingredient = [];
+      this.opt_ingredient = {};
     },
     lessQuota(id) {
       this.listQuota = this.listQuota.filter((item) => item.id !== id);
     },
     moreQuota() {
-      this.listQuota.push({ id: `tmp_${this.listQuota.length}` });
+      let arr = this.listQuota.filter(item => item.id.toString().includes('tmp_'))
+      let tmp_id = arr.length <= 0 ? 1 : Number(arr.pop().id.substr(4)) + 1
+      this.listQuota.push({ id: `tmp_${tmp_id}` });
     },
     async createQuota(){
       if(this.isSubmit) return 
