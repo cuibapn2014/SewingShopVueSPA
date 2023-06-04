@@ -21,6 +21,7 @@ import WarehouseExport from "../views/admin/WarehouseExport.vue"
 import ForgotPassword from '../views/auth/ForgotPassword.vue'
 import ResetPassword from '../views/auth/ResetPassword.vue'
 import BaseLayout from '../components/layouts/BaseLayout.vue'
+import NotFound from '../views/error/404.vue'
 
 const routes = [{
         path: '/',
@@ -191,6 +192,14 @@ const routes = [{
                 next()
             }
             next('/login')
+        }
+    },
+    {
+        path: '/:catchAll(.*)',
+        name: '404',
+        component: NotFound,
+        meta: {
+            title: "404 - Not found"
         }
     }
 ]
