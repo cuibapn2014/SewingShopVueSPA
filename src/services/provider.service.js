@@ -36,7 +36,7 @@ async function getDataSelect(data = null){
             'Content-Type': 'application/json'
         }
     };
-    return axios.get(`${config.apiUrl}/provider/select`, {
+    return axios.get(`${config.apiUrl}/select-box/provider`, {
         params:{
             ...data
         }

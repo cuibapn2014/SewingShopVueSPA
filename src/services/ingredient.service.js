@@ -8,6 +8,7 @@ axios.defaults.withCredentials = true
 export const ingredientService = {
     getDataAll,
     getDataBySelectBox,
+    getDataProductBySelectBox,
     create,
     update,
     findById,
@@ -36,7 +37,21 @@ async function getDataBySelectBox(data){
             'Content-Type': 'application/json'
         }
     };
-    return axios.get(`${config.apiUrl}/ingredient/select`, {
+    return axios.get(`${config.apiUrl}/select-box/ingredient`, {
+        params:{
+            ...data,
+        }
+    },requestOptions);
+}
+
+async function getDataProductBySelectBox(data){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.get(`${config.apiUrl}/select-box/product`, {
         params:{
             ...data,
         }
