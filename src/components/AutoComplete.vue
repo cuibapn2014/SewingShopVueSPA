@@ -98,7 +98,9 @@ export default {
   },
   watch: {
     options: function (n, o) {
-      if (n.length <= 0) this.textSelected = "";
+      if (n.length <= 0) {
+        this.textSelected = "";
+      }
       this.isSearch = false;
     },
     value: function(n, o) {
@@ -127,6 +129,7 @@ export default {
       tempTxt: "",
       valueSelected: null,
       isSearch: false,
+      tempResult: []
     };
   },
   methods: {
