@@ -9,6 +9,7 @@ export const customerService = {
     getDataAll,
     create,
     findById,
+    getDataBySelectBox,
     update,
     deleteById
 }
@@ -68,4 +69,18 @@ async function deleteById(id){
     };
 
     return axios.delete(`${config.apiUrl}/customer/delete/${id}`, null, requestOptions);
+}
+
+async function getDataBySelectBox(data){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.get(`${config.apiUrl}/select-box/customer`, {
+        params:{
+            ...data,
+        }
+    },requestOptions);
 }
