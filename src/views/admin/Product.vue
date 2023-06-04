@@ -3,7 +3,7 @@
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
       Thành phẩm
     </h2>
-    <div class="flex justify-end py-2 sticky top-0 z-10 bg-[#ffffff] dark:bg-gray-900">
+    <div class="flex justify-end py-2 sticky top-0 z-10 bg-transparent dark:bg-gray-900">
       <form method="GET" @submit.prevent="this.searchSubmit()" class="flex mx-2">
         <input
           class="block w-48 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray rounded-l-md form-input"
