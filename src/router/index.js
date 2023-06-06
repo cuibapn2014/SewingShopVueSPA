@@ -148,7 +148,8 @@ const routes = [{
         name: 'login',
         component: Login,
         meta: {
-            animateName: "float"
+            animateName: "float",
+            title: "Đăng nhập"
         }
     },
     // {
@@ -169,7 +170,8 @@ const routes = [{
         name: 'register',
         component: Register,
         meta: {
-            animateName: "float"
+            animateName: "float",
+            title: "Đăng ký"
         }
     },
     {
@@ -177,7 +179,8 @@ const routes = [{
         name: 'forgot-password',
         component: ForgotPassword,
         meta: {
-            animateName: "float"
+            animateName: "float",
+            title: "Quên mật khẩu"
         }
     },
     {
@@ -185,7 +188,8 @@ const routes = [{
         name: 'reset-password',
         component: ResetPassword,
         meta: {
-            animateName: "float"
+            animateName: "float",
+            title: "Khôi phục mật khẩu"
         },
         beforeEnter: (to, from, next) => {
             if (to.query.email) {

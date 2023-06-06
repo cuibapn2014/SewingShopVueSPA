@@ -24,15 +24,16 @@
         <td class="px-4 py-3 text-sm">
           {{ index + idx }}
         </td>
-        <td class="px-4 py-3">
+        <td class="px-4 py-3 max-w-sm overflow-hidden text-ellipsis" v-tooltip="item.name">
           {{ item.name }}
         </td>
         <td class="px-2 py-3 text-sm">
           {{ item.phone_number }}
         </td>
         <td
-          class="px-4 py-3 text-sm text-ellipsis overflow-hidden w-48"
+          class="px-4 py-3 text-sm text-ellipsis overflow-hidden max-w-sm"
           style="max-width: 200px; text-overflow: ellipsis"
+          v-tooltip="item.address"
         >
           {{ item.address }}
         </td>
@@ -48,7 +49,7 @@
             {{ this.getStatus(item.status) }}
           </span>
         </td>
-        <td class="px-4 py-3 text-sm">
+        <td class="px-4 py-3 text-sm max-w-sm overflow-hidden text-ellipsis" v-tooltip="item.note">
           {{ item.note }}
         </td>
         <td class="px-4 py-3 text-sm flex items-center">
@@ -141,7 +142,7 @@ export default {
   },
   data() {
     return {
-      fieldList: ["Tên", "Liên hệ", "Địa chỉ", "Trạng thái", "Ghi chú"],
+      fieldList: ["Tên nhà cung cấp", "Liên hệ", "Địa chỉ", "Trạng thái", "Ghi chú"],
       index: this.data_list?.data.from || 1,
       url: config.apiUrl.split("/api")[0],
       isOpenModal: false,

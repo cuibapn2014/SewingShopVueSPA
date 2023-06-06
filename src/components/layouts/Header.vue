@@ -124,7 +124,7 @@
             <ul
               v-click-away="this.closeNotificationsMenu"
               @keydown.escape="this.closeNotificationsMenu"
-              class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-[#ffffff] border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700 ease-in duration-150"
+              class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-[#ffffff] border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700 ease-in duration-150"
             >
               <li class="flex">
                 <a
@@ -186,7 +186,7 @@
             <ul
               v-click-away="closeProfileMenu"
               @keydown.escape="closeProfileMenu"
-              class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-[#ffffff] border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700 ease-in duration-150"
+              class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-[#ffffff] border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700 ease-in duration-150"
               aria-label="submenu"
             >
               <li class="flex">

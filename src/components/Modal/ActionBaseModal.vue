@@ -50,7 +50,7 @@
                     </button>
                 </header>
                 <!-- Modal body -->
-                <div class="mt-4 mb-6 pb-28 h-full overflow-y-auto">
+                <div class="mt-4 mb-6 pb-28 h-full overflow-y-auto overflow-x-visible">
                     <!-- Modal title -->
                     <p class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-300">
                         {{ title }}
@@ -76,8 +76,8 @@
           ">
                     <button class="
               w-full
-              px-5
-              py-5
+              px-4
+              py-3
               text-sm
               font-medium
               leading-5
@@ -96,7 +96,7 @@
             " @click="this.closeModal()">
                         Đóng
                     </button>
-            <button @click.prevent="this.save()" class="w-full text-white leading-5 py-5 sm:w-auto px-4 sm:py-2 rounded-lg border-0 bg-indigo-600 hover:bg-indigo-700 duration-150">
+            <button @click.prevent="this.save()" class="w-full text-white leading-5 py-3 sm:w-auto px-4 sm:py-2 rounded-lg border-0 bg-indigo-600 hover:bg-indigo-700 duration-150">
                 <font-awesome-icon v-if="is_submit" class="animate-spin"
                                     icon="fa-solid fa-circle-notch" />
                 Lưu

@@ -97,6 +97,12 @@ button:focus-visible {
   } */
 }
 
+@media (prefers-reduced-motion:no-preference){
+  body {
+    background-color: transparent !important;
+  }
+}
+
 html{
   background-color: rgb(249 250 251 / 1) !important;
 }

@@ -9,6 +9,7 @@
         transition duration-150
         bg-black bg-opacity-50
         sm:items-center sm:justify-center
+        z-50
       " id="backdrop-overlay" @click="closeModal" @keydown.escape="closeModal">
             <transition enter-from-class="ease-out opacity-0 transform translate-y-1/2" enter-to-class="opacity-100"
                 leave-from-class="ease-in opacity-100" leave-to-class="opacity-0 transform translate-y-1/2">

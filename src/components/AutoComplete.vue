@@ -31,7 +31,7 @@
     >
       <div
         v-if="this.isShowOption"
-        class="duration-75 w-full max-h-52 dark:bg-gray-900 bg-white text-base rounded-b-md z-[51] absolute cursor-pointer overflow-y-auto shadow-md"
+        class="duration-75 w-full max-h-52 dark:bg-gray-900 bg-[#ffffff] text-base rounded-b-md z-[51] absolute cursor-pointer overflow-y-auto shadow-md"
       >
         <li v-if="this.isSearch" class="text-center select-none p-2 text-gray-600 dark:text-gray-200">
           <font-awesome-icon

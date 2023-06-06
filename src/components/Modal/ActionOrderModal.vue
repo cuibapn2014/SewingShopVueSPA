@@ -6,7 +6,7 @@
     :is_submit="this.isSubmit"
   >
     <form id="form_order" ref="form_order">
-      <div class="grid lg:grid-cols-4 gap-5 items-start">
+      <div class="grid lg:grid-cols-4 gap-4 items-start">
         <AutoComplete
           name="id_customer"
           placeholder="Chọn khách hàng"

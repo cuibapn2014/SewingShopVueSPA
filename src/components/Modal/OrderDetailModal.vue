@@ -73,7 +73,7 @@
       </div>
       <hr>
       <div class="w-full border-bottom py-2 flex flex-col text-gray-800 dark:text-gray-200">
-        <h3 class="font-bold">Thông tin đơn hàng</h3>
+        <h3 class="font-bold text-base">Thông tin đơn hàng</h3>
         <div class="grid grid-cols-6 gap-x-1 gap-y-2 my-3 items-center text-gray-800 dark:text-gray-200">
           <span class="text-center">#</span>
           <span class="col-span-2">Tên sản phẩm - Số lượng</span>
@@ -83,7 +83,7 @@
         </div>
         <div
           class="grid grid-cols-6 gap-x-1 gap-y-2 py-4 items-center py-1 rounded-md text-gray-800 dark:text-gray-200 hover:bg-gray-50 hover:text-gray-700 hover:font-bold cursor-pointer ease-in duration-150"
-          :class="{'bg-gray-200 dark:bg-gray-900 hover:dark:bg-gray-50': !this.isOddRow(index)}"
+          :class="{'bg-gray-200 dark:bg-gray-900 hover:dark:bg-gray-50 hover:dark:text-gray-700': !this.isOddRow(index)}"
           v-for="({id, product, quality, amount, price}, index) in this.order?.detail"
           :key="id"
         >
@@ -146,7 +146,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
-          Hạn giao:
+          Ngày giao hàng:
           <span
             class="mx-2"
             :class="{ 'text-red-500 font-bold': expireTime <= 2 }"
