@@ -8,6 +8,7 @@ axios.defaults.withCredentials = true
 export const orderService = {
     getDataAll,
     findById,
+    getDataOrderBySelectBox,
     updateStatus,
     create,
     update,
@@ -38,6 +39,20 @@ async function findById(id){
     };
 
     return axios.get(`${config.apiUrl}/order/${id}`, null, requestOptions);
+}
+
+async function getDataOrderBySelectBox(data){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.get(`${config.apiUrl}/select-box/order`, {
+        params:{
+            ...data,
+        }
+    },requestOptions);
 }
 
 async function create(order){
