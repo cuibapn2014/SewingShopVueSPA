@@ -177,7 +177,7 @@ export default {
       const code = data?.detail_order?.order?.code
       const product = data?.detail_order?.product?.Ten
       const customer = data?.detail_order?.order?.customer?.name
-      return `${code} - ${product} - KH: ${customer}`
+      return code && product && customer ? `${code} - ${product} - KH: ${customer}` : ''
     }
   },
   data() {
