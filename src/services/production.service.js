@@ -6,7 +6,8 @@ axios.defaults.withCredentials = true
 
 
 export const productionService = {
-    getDataAll
+    getDataAll,
+    create
 }
 
 async function getDataAll(page = null){
@@ -18,4 +19,14 @@ async function getDataAll(page = null){
     };
     let queryPage = page != null ? '?page=' + page : ''
     return axios.get(`${config.apiUrl}/production${queryPage}`, null, requestOptions);
+}
+
+async function create(id_production){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.post(`${config.apiUrl}/production/create/${id_production}`, null, requestOptions);
 }
