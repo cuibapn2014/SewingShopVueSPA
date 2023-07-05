@@ -6,7 +6,8 @@ axios.defaults.withCredentials = true
 
 
 export const purchaseRemindService = {
-    getDataAll
+    getDataAll,
+    create
 }
 
 async function getDataAll(page = null){
@@ -18,4 +19,14 @@ async function getDataAll(page = null){
     };
     let queryPage = page != null ? '?page=' + page : ''
     return axios.get(`${config.apiUrl}/purchase-remind${queryPage}`, null, requestOptions);
+}
+
+async function create(id_request){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.post(`${config.apiUrl}/purchase-remind/create/${id_request}`, null, requestOptions);
 }
