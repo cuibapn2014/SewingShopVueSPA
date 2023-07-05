@@ -1,58 +1,5 @@
 <template>
-    <div class="w-full overflow-x-auto">
-        <div class="flex justify-end py-2">
-            <form class="flex">
-                <input class="
-                    block
-                    w-48
-                    text-sm
-                    dark:border-gray-600 dark:bg-gray-700
-                    focus:border-purple-400
-                    focus:outline-none
-                    focus:shadow-outline-purple
-                    dark:text-gray-300 dark:focus:shadow-outline-gray
-                    rounded-l-md
-                    form-input
-                    " type="text" name="keyword" placeholder="Nhập tìm kiếm.." />
-                <button
-                    class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </form>
-            <div class="inline-block relative group mx-2">
-                <ul class="absolute hidden text-gray-700 pt-1 right-0 top-[50] group-hover:block z-50"
-                    style="margin-top: 35px;">
-                    <li class=""><a
-                            class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-gray-700">Phiếu
-                            thu</a></li>
-                    <li class=""><a
-                            class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-gray-700">Phiếu
-                            chi</a></li>
-                </ul>
-                <button onclick=""
-                    class="flex items-center h-full px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-lg active:bg-purple-700 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                    Tạo mới
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-            <button onclick=""
-                class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border-0 rounded-lg active:bg-green-700 hover:bg-green-700 focus:outline-none focus:shadow-outline-purple">
-                Xuất Excel
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-            </button>
-        </div>
+    <div class="w-full overflow-x-auto">   
         <BaseTable :field_list="this.fieldList" :data_paginate="dataPaginate" path_current="production-request">
             <transition enter-from-class="opacity-0" enter-to-class="opacity-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
                 <div
@@ -72,7 +19,7 @@
                 </td>
                 <td class="px-3 py-3 text-sm">
                     <img class="w-16 h-16 rounded-lg object-cover img__mthumbnail"
-                        :src="item.product.images.length > 0 ? `${this.url}/img/${item.product.images[0].urlImage}` : `${this.url}/img/placeholder.jpg`"
+                        :src="item.image ? `${this.url}/img_product/${item.image}` : `${this.url}/img/placeholder.jpg`"
                         alt="" />
                 </td>
                 <td class="px-3 py-3 text-sm">
@@ -121,10 +68,11 @@
                         class="h-12 w-12 object-cover object-center rounded-full" loading="lazy" />
                 </td>
                 <td class="px-3 py-3 text-sm">
-                    {{ new Date(item.updated_at).toLocaleDateString('vi') }}
+                    {{ this.$moment(item.updated_at).format('DD/MM/YYYY') }}
                 </td>
                 <td class="px-3 py-3 text-sm flex items-center">
                     <button v-if="item.status == 1" title="Chỉnh sửa" v-tooltip="'Chỉnh sửa'"
+                        @click="this.setEditId(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit">
                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -134,6 +82,7 @@
                         </svg>
                     </button>
                     <button v-if="item.status == 1" v-tooltip="'Xóa'" title="Xóa"
+                        @click.prevent="this.openModalDelete(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Delete">
                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -142,7 +91,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </button>
-                    <button v-if="item.status == 1" v-tooltip="'Tạo yêu cầu mua hàng'" title="Tạo yêu cầu mua hàng"
+                    <!-- <button v-if="item.status == 1" v-tooltip="'Tạo yêu cầu mua hàng'" title="Tạo yêu cầu mua hàng"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Delete">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -150,10 +99,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                    </button>
-                    <button v-if="item.status == 1" v-tooltip="'Tạo kế hoạch vật tư'" title="Tạo kế hoạch vật tư"
+                    </button> -->
+                    <button v-if="item.status == 1" v-tooltip="'Tạo yêu cầu mua hàng'" title="Tạo yêu cầu mua hàng"
+                        @click="handleCreatePurchase(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                        aria-label="Delete">
+                        aria-label="create purchase">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -161,6 +111,7 @@
                         </svg>
                     </button>
                     <button v-if="item.status == 1" v-tooltip="'Tạo lệnh sản xuất'" title="Tạo lệnh sản xuất"
+                        @click="this.handleCreateProduction(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="create">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -176,7 +127,8 @@
                                 d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8zM12 15a1 1 0 100-2H6.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L6.414 15H12z" />
                         </svg>
                         </button> -->
-                    <button v-if="item.status < 4 && item.status > 1" title="Báo cáo" v-tooltip="'Báo cáo tiến độ'"
+                    <button v-if="item.status <= 4 && item.status > 1" title="Tiến độ sản xuất" v-tooltip="'Tiến độ sản xuất'"
+                        @click="this.openProgressModal(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="process">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -185,6 +137,7 @@
                         </svg>
                     </button>
                     <button v-if="item.status < 4 && item.status > 1" v-tooltip="'Ngưng sản xuất'"
+                        @click="this.handleUpdateStatus(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
@@ -199,11 +152,27 @@
                 <td colspan="13" v-if="renderData.data?.data.length <= 0"
                     class="text-sm text-center py-4 text-gray-800 dark:text-gray-200">Không tìm thấy dữ liệu nào</td>
             </tr>
+            <ConfirmDeleteModal
+            :is_open="this.isOpenModal"
+            @close_delete="this.handleEventDelete"
+            @confirm_delete="this.handleEventDelete"
+            />
+            <ProgressProductionModal
+                :id_production_request="this.idProgress"
+                :is_open="this.isOpenProgressModal"
+                @togglemodal="this.closeProgressModal"
+            />
         </BaseTable>
     </div>
 </template>
 <script>
+import { toast } from 'vue3-toastify';
 import { config } from '../../helpers/config';
+import { productionService } from '../../services/production.service';
+import { productionRequestService } from '../../services/productionRequest.service';
+import { purchaseRemindService } from '../../services/purchaseRemind.service';
+import ConfirmDeleteModal from '../Modal/ConfirmDeleteModal.vue';
+import ProgressProductionModal from '../Modal/ProressProductionModal.vue'
 import BaseTable from './BaseTable.vue';
 
 export default {
@@ -212,7 +181,7 @@ export default {
         is_load: Boolean
     },
     components: {
-        BaseTable
+        BaseTable, ConfirmDeleteModal, ProgressProductionModal
     },
     computed: {
         renderData() {
@@ -244,7 +213,16 @@ export default {
                 'Ngày tạo'
             ],
             index: this.data_list?.data.from || 1,
-            url: config.apiUrl.split('/api')[0]
+            url: config.apiUrl.split('/api')[0],
+            isShowModal: false,
+            status: null,
+            idUpdate: null,
+            isOpenModal: false,
+            isOpenProgressModal: false,
+            deleteId: null,
+            isOpenDetailModal: false,
+            idDetail: null,
+            idProgress: null,
         }
     },
     methods: {
@@ -260,7 +238,122 @@ export default {
                 case 3: return "Hoàn thành";
                 case 4: return "Ngưng sản xuất";
             }
-        }
+        },
+        setEditId(id) {
+            this.$emit("edit_production_suggest", id);
+        },
+        openModal(status, id) {
+            this.status = status
+            this.idUpdate = id
+            this.isShowModal = true;
+        },
+        closeModal() {
+            this.isShowModal = false;
+        },
+        openModalDelete(id) {
+            this.isOpenModal = true;
+            this.deleteId = id;
+        },
+        openProgressModal(id) {
+            this.isOpenProgressModal = true;
+            this.idProgress = id;
+        },
+        closeProgressModal() {
+            this.isOpenProgressModal = false;
+        },
+        async handleEventDelete(data) {
+            if (data) {
+                await productionRequestService
+                .deleteById(this.deleteId)
+                .then((res) => {
+                    if (res.data.msg) {
+                    toast.success(`Xóa thành công!`, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: toast.THEME.COLORED,
+                        pauseOnHover: false,
+                    });
+                    this.$emit("delete_production_suggest");
+                    }
+                })
+                .catch((err) => {
+                    toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: toast.THEME.COLORED,
+                    pauseOnHover: false,
+                    });
+                });
+            }
+            this.isOpenModal = false;
+            this.deleteId = null;
+        },
+        async handleCreatePurchase(data) {
+            if (data) {
+                await purchaseRemindService
+                .create(data)
+                .then((res) => {
+                    if (res.data.msg) {
+                        toast.success(res.data.msg, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: toast.THEME.COLORED,
+                            pauseOnHover: false,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: toast.THEME.COLORED,
+                    pauseOnHover: false,
+                    });
+                });
+            }
+        },
+        async handleCreateProduction(data) {
+            if (data) {
+                await productionService
+                .create(data)
+                .then((res) => {
+                    if (res.data.msg) {
+                        this.$emit("delete_production_suggest"); // trigger reFetchData() in parent
+                        toast.success(res.data.msg, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: toast.THEME.COLORED,
+                            pauseOnHover: false,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: toast.THEME.COLORED,
+                    pauseOnHover: false,
+                    });
+                });
+            }
+        },
+        async handleUpdateStatus(data) {
+            if (data) {
+                await productionRequestService
+                .updateStatus(data)
+                .then((res) => {
+                    if (res.data.msg) {
+                        this.$emit("delete_production_suggest"); // trigger reFetchData() in parent
+                        toast.success(res.data.msg, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: toast.THEME.COLORED,
+                            pauseOnHover: false,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: toast.THEME.COLORED,
+                    pauseOnHover: false,
+                    });
+                });
+            }
+        },
     }
 }
 </script>
