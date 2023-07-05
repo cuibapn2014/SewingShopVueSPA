@@ -85,6 +85,10 @@ button:focus-visible {
   /* text-align: center; */
 }
 
+.medium-zoom-image {
+  z-index: 51 !important;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -98,7 +102,7 @@ button:focus-visible {
   } */
 }
 
-@media (prefers-reduced-motion:no-preference){
+@media (prefers-reduced-motion:no-preference) {
   body {
     background-color: transparent !important;
   }
@@ -110,4 +114,8 @@ html{
 
 .dark{
   background-color: rgb(17 24 39 / 1) !important;
+}
+
+li {
+  list-style-type: none !important;
 }
