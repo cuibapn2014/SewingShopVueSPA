@@ -61,7 +61,6 @@
   </div>
 </template>
 <script lang="js">
-import mediumZoom from "medium-zoom";
 import { config } from "../helpers/config";
 import "../assets/css/tailwind.output.css"
 export default {
@@ -69,11 +68,6 @@ export default {
     url_img: null,
     pk_number: Number,
     img_file: File
-  },
-  mounted() {
-    mediumZoom(document.querySelectorAll(".img__thumbnail"), {
-      background: "rgba(0,0,0,0.5)",
-    });
   },
   beforeUpdate(){
     let input = this.$refs.fileImage

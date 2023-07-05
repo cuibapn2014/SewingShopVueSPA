@@ -304,7 +304,9 @@ import { config } from "../../helpers/config";
 export default {
   created() {
     window.addEventListener("keyup", (e) => {
-      if (e.key == "/") this.$refs.search_input.focus();
+      let activeEle = document.activeElement
+      let searchEle = this.$refs.search_input
+      if (e.key == "/" && activeEle.tagName.toLocaleUpperCase() != "INPUT") searchEle.focus();
     });
   },
   computed: {

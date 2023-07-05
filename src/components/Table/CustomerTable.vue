@@ -38,6 +38,7 @@
         <td
           class="px-4 py-3 text-sm text-ellipsis overflow-hidden w-48"
           style="max-width: 200px; text-overflow: ellipsis"
+          v-tooltip="item.address"
         >
           {{ item.address }}
         </td>

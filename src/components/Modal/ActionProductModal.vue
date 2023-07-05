@@ -149,7 +149,6 @@ import { stageService } from "../../services/stage.service";
 import { numberFunctions } from "../../helpers/numberFunctions";
 import { config } from '../../helpers/config';
 import ConfirmDeleteModal from "./ConfirmDeleteModal.vue"
-import mediumZoom from 'medium-zoom'
 
 export default {
   components: {

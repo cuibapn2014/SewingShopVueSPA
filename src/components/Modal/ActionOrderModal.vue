@@ -83,7 +83,7 @@
         Chi tiết đơn hàng
       </h3>
       <div
-        v-for="product in detail_order"
+        v-for="(product, index) in detail_order"
         :key="product.id"
         class="grid md:grid-cols-7 gap-4 items-end mb-4"
       >
@@ -133,6 +133,7 @@
         </label>
         <button
           type="button"
+          v-if="index"
           @click.prevent="this.removeDetailById(product.id)"
           class="px-3 py-2 w-10 h-10 rounded-md text-white bg-red-500 flex justify-center items-center hover:bg-red-600 duration-150"
         >
@@ -190,7 +191,6 @@ import { customerService } from "../../services/customer.service";
 import { imageService } from "../../services/image.service";
 import { numberFunctions } from "../../helpers/numberFunctions";
 import { config } from "../../helpers/config";
-import mediumZoom from "medium-zoom";
 import NumberInput from "../NumberInput.vue";
 
 export default {
@@ -226,11 +226,6 @@ export default {
         if (n) this.getDataById();
       }
     },
-  },
-  updated() {
-    const zoom = mediumZoom(document.querySelectorAll(".img__mthumbnail"), {
-      background: "rgba(0,0,0,0.5)",
-    });
   },
   data() {
     return {

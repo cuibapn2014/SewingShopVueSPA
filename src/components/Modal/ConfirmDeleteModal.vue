@@ -94,7 +94,7 @@ export default {
   },
   created(){
     window.addEventListener('keydown', e => {
-            if(e.key.toLocaleLowerCase() === 'escape' && this.is_open)
+            if(e.key && e.key.toLocaleLowerCase() === 'escape' && this.is_open)
                 this.closeModal()
         })
   },

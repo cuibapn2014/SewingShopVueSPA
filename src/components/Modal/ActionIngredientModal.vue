@@ -142,7 +142,6 @@ import { imageService } from "../../services/image.service";
 import { unitCalService } from "../../services/unitCal.service";
 import { numberFunctions } from "../../helpers/numberFunctions";
 import { config } from '../../helpers/config';
-import mediumZoom from 'medium-zoom'
 import { isObject } from "@vue/shared";
 
 export default {
@@ -186,11 +185,6 @@ export default {
         this.getDataById();
       }
     },
-  },
-  updated(){
-        const zoom = mediumZoom(document.querySelectorAll('.img__mthumbnail'), {
-            background: "rgba(0,0,0,0.5)"
-        })
   },
   data() {
     return {

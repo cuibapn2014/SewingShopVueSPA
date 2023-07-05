@@ -179,7 +179,6 @@
   </transition>
 </template>
 <script>
-import mediumZoom from "medium-zoom";
 import { orderService } from "../../services/order.service";
 import { toRaw } from "vue";
 
@@ -192,11 +191,6 @@ export default {
     display: function (n, o){
       if(n) this.getDataById()
     }
-  },
-  mounted() {
-    mediumZoom(document.querySelectorAll(".product__thumbnail"), {
-      background: "rgba(0,0,0,0)",
-    });
   },
   data() {
     return {
