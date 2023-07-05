@@ -89,6 +89,10 @@ import loginImageDark from "../../assets/images/login-office-dark.jpeg"
 import { toast } from 'vue3-toastify';
 
 export default {
+    created(){
+        this.credentials.username = import.meta.env.VITE_USER_TEST || process.env.VITE_USER_TEST
+        this.credentials.password = import.meta.env.VITE_PASSWORD_TEST || process.env.VITE_PASSWORD_TEST
+    },
     mounted() {
         this.getTheme();
         let logined = this.$store.getters.isLoggedIn
