@@ -12,7 +12,8 @@ export const productionRequestService = {
     update,
     deleteById,
     showDataProgress,
-    updateStatus
+    updateStatus,
+    updateCompleted
 }
 
 async function getDataAll(page = null, data){
@@ -92,4 +93,14 @@ async function updateStatus(id){
         }
     };
     return axios.put(`${config.apiUrl}/production-request/update-status/${id}`, null, requestOptions);
+}
+
+async function updateCompleted(data){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.put(`${config.apiUrl}/production-request/update-completed`, data, requestOptions);
 }

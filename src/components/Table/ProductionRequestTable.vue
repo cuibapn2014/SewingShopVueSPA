@@ -40,6 +40,7 @@
                 <td class="px-3 py-3 text-sm">
                     {{ item.completed.toLocaleString('vi') }} cái
                     <button v-if="item.status < 2" title="Phân bổ" v-tooltip="'Phân bổ'"
+                        @click="this.openDistributeModal(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -137,7 +138,7 @@
                         </svg>
                     </button>
                     <button v-if="item.status < 4 && item.status > 1" v-tooltip="'Ngưng sản xuất'"
-                        @click="this.handleUpdateStatus(item.id)"
+                        @click="this.openConfirmModal(item.id)"
                         class="flex items-center justify-between px-3 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
@@ -162,6 +163,20 @@
                 :is_open="this.isOpenProgressModal"
                 @togglemodal="this.closeProgressModal"
             />
+            <ConfirmModal
+            title="Xác nhận"
+            content="Bạn có muốn cập nhật trạng thái sang ngưng sản xuất ?"
+            submit_txt="Xác nhận"
+            :is_open="this.isOpenConfirmModal"
+            @close="this.closeConfirmModal"
+            @confirm="this.handleUpdateStatus"
+            />
+            <DistributeModal
+            :is_open="this.isOpenDistributeModal"
+            :id_production_request="this.idUpdate"
+            @close="this.closeDistributeModal"
+            @success="this.handleSuccessDistribute"
+            />
         </BaseTable>
     </div>
 </template>
@@ -172,6 +187,8 @@ import { productionService } from '../../services/production.service';
 import { productionRequestService } from '../../services/productionRequest.service';
 import { purchaseRemindService } from '../../services/purchaseRemind.service';
 import ConfirmDeleteModal from '../Modal/ConfirmDeleteModal.vue';
+import ConfirmModal from '../Modal/ConfirmModal.vue';
+import DistributeModal from '../Modal/DistributeModal.vue';
 import ProgressProductionModal from '../Modal/ProressProductionModal.vue'
 import BaseTable from './BaseTable.vue';
 
@@ -181,7 +198,7 @@ export default {
         is_load: Boolean
     },
     components: {
-        BaseTable, ConfirmDeleteModal, ProgressProductionModal
+        BaseTable, ConfirmDeleteModal, ProgressProductionModal, ConfirmModal, DistributeModal
     },
     computed: {
         renderData() {
@@ -218,11 +235,14 @@ export default {
             status: null,
             idUpdate: null,
             isOpenModal: false,
+            isOpenConfirmModal: false,
             isOpenProgressModal: false,
+            isOpenDistributeModal: false,
             deleteId: null,
             isOpenDetailModal: false,
             idDetail: null,
             idProgress: null,
+            id_confirm: null
         }
     },
     methods: {
@@ -260,6 +280,27 @@ export default {
         },
         closeProgressModal() {
             this.isOpenProgressModal = false;
+        },
+        openConfirmModal(id) {
+            this.isOpenConfirmModal = true;
+            this.id_confirm = id;
+        },
+        closeConfirmModal() {
+            this.isOpenConfirmModal = false;
+            this.id_confirm = null;
+        },
+        openDistributeModal(id) {
+            this.isOpenDistributeModal = true;
+            this.idUpdate = id;
+        },
+        closeDistributeModal(id) {
+            this.isOpenDistributeModal = false;
+            this.idUpdate = null;
+        },
+        handleSuccessDistribute(id) {
+            this.isOpenDistributeModal = false;
+            this.idUpdate = null;
+            this.$emit("delete_production_suggest"); // trigger reFetchData() in parent
         },
         async handleEventDelete(data) {
             if (data) {
@@ -331,7 +372,8 @@ export default {
                 });
             }
         },
-        async handleUpdateStatus(data) {
+        async handleUpdateStatus() {
+            let data = this.id_confirm
             if (data) {
                 await productionRequestService
                 .updateStatus(data)
@@ -352,6 +394,8 @@ export default {
                     pauseOnHover: false,
                     });
                 });
+                this.isOpenConfirmModal = false;
+                this.id_confirm = null;
             }
         },
     }
