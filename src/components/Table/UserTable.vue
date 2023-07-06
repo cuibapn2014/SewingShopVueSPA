@@ -45,7 +45,11 @@
                 </span>
             </td>
             <td class="px-4 py-3 text-sm">
-                {{ new Date(item.created_at).toLocaleDateString() }}
+                {{ this.$moment(item.updated_at).format("DD/MM/YYYY") }}
+            </td>
+             <td class="px-4 py-3 text-sm">
+                {{ item.last_login_at ? this.$moment(item.last_login_at).format("DD/MM/YYYY HH:mm") + " | " : null }}
+                {{ item.ip_last_login }}
             </td>
             <td class="px-4 py-3 text-sm">
                 <button title="Chỉnh sửa"
@@ -119,7 +123,8 @@ export default {
                 'Phòng ban',
                 'Chức vụ',
                 'Trạng thái',
-                'Ngày tham gia'
+                'Ngày tham gia',
+                'Đăng nhập lần cuối'
             ],
             index: this.data_list?.data.from || 1,
             url: config.apiUrl.split('/api')[0],
