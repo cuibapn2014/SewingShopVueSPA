@@ -72,7 +72,7 @@
                                 clip-rule="evenodd" />
                         </svg>
 
-                        Lưu ý: Chưa lưu thay đổi
+                        Chưa lưu thay đổi
                     </p>
                 </div>
             </div>
@@ -96,11 +96,11 @@ import BaseModal from './BaseModal.vue';
 import { mapGetters } from 'vuex';
 export default {
     created() {
+        this.user = this.userInStore
         this.current_user = {
             name: this.user?.name,
             phone: this.user?.phone
         }
-        this.user = this.userInStore
     },
     computed: {
         ...mapGetters('account', {

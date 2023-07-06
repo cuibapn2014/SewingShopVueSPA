@@ -3,9 +3,9 @@
         <BaseModal title="Cập nhật tài khoản" :txt_accept="'Lưu thay đổi'" :display="this.isShowModal"
             @close-base-modal="closeModal">
             <div class="flex justify-between my-3">
-                <div class="text-base grow pl-2 flex flex-col">
+                <div class="text-base grow flex flex-col">
                     <label class="my-1">
-                        <span>Mật khẩu hiện tại</span>
+                        <span class="text-gray-900 dark:text-gray-200 text-sm">Mật khẩu hiện tại</span>
                         <input class="
                                 block
                                 w-full
@@ -19,8 +19,8 @@
                                 form-input
                             " type="password" v-model="current_password" placeholder="Nhập mật khẩu hiện tại"/>
                     </label>
-                    <label class="my-1">
-                        <span>Mật khẩu mới</span>
+                    <label class="mt-3 mb-1">
+                        <span class="text-gray-900 dark:text-gray-200 text-sm">Mật khẩu mới</span>
                         <span class="mx-2 text-red-500 text-sm">{{ validated.password }}</span>
                         <input class="
                                 block
@@ -36,7 +36,7 @@
                             " type="password" v-model="password" placeholder="Nhập mật khẩu mới"/>
                     </label>
                     <label class="my-1">
-                        <span>Xác nhận mật khẩu</span>
+                        <span class="text-gray-900 dark:text-gray-200 text-sm">Xác nhận mật khẩu</span>
                         <span class="mx-2 text-red-500 text-sm">{{ validated.confirm_password }}</span>
                         <input class="
                                 block

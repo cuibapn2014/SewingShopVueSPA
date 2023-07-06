@@ -123,7 +123,7 @@
                     </span>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                    {{ new Date(item.updated_at).toLocaleDateString('vi') }}
+                    {{ this.$moment(item.updated_at).format("DD/MM/YYYY") }}
                 </td>
                 <td class="px-4 py-3 text-sm flex items-center">
                     <button v-if="isCompletedStatus(item) == 2" title="Cập nhật" v-tooltip="'Cập nhật'"

@@ -1147,9 +1147,8 @@ export default {
       this.isProductionMenuOpen = !this.isProductionMenuOpen
     },
     isRoute(menu) {
-      let route = this.$route.path
-      if (route.includes(menu)) return true
-      return false
+      let route = this.$route.path.substr(1).split('/')[0]
+      return route === menu.toLowerCase()
     }
   }
 };

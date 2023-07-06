@@ -1,7 +1,7 @@
 <template>
   <div class="w-full overflow-x-auto">
     <div class="flex justify-end py-2">
-      <form class="flex">
+      <form class="flex mx-2">
         <input
           class="block w-48 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray rounded-l-md form-input"
           type="text"
@@ -24,46 +24,8 @@
             />
           </svg>
         </button>
-      </form>
-      <div class="inline-block relative group mx-2">
-        <ul
-          class="absolute hidden text-gray-700 pt-1 right-0 top-[50] group-hover:block z-50"
-          style="margin-top: 35px"
-        >
-          <li class="">
-            <a
-              class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-gray-700"
-              >Phiếu thu</a
-            >
-          </li>
-          <li class="">
-            <a
-              class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-gray-700"
-              >Phiếu chi</a
-            >
-          </li>
-        </ul>
-        <button
-          onclick=""
-          class="flex items-center h-full px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-lg active:bg-purple-700 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-        >
-          Tạo mới
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
+      </form>    
       <button
-        onclick=""
         class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border-0 rounded-lg active:bg-green-700 hover:bg-green-700 focus:outline-none focus:shadow-outline-purple"
       >
         Xuất Excel
@@ -146,7 +108,7 @@
           </span>
         </td>
         <td class="px-4 py-3 text-sm">
-          {{ new Date(item.created_at).toLocaleDateString("vi") }}
+          {{ this.$moment(item.updated_at).format("DD/MM/YYYY") }}
         </td>
         <td class="px-4 py-3 text-sm flex items-center">
           <button

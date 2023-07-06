@@ -83,7 +83,7 @@
               transition-colors
               duration-150
               bg-purple-600
-              border border-transparent
+              border-transparent
               rounded-lg
               sm:w-auto sm:px-4 sm:py-2
               active:bg-purple-600

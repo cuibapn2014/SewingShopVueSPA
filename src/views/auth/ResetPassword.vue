@@ -5,10 +5,10 @@
                 <div class="mx-auto w-96 flex flex-col bg-white p-3 rounded-lg shadow-md text-gray-600">
                     <h2 class="text-lg font-semibold mb-2">Thay đổi mật khẩu</h2>
                     <label class="text-sm">Email</label>
-                    <input class="bg-gray-50 p-2 rounded-md border focus:outline-none text-sm" type="email" readonly
+                    <input class="bg-gray-50 p-2 rounded-mdfocus:outline-none text-sm" type="email" readonly
                         autocomplete="email" :value="email" autofocus>
                     <label for="password" class="mt-3 text-sm">Mật khẩu mới</label>
-                    <input class="bg-gray-50 p-2 rounded-md border text-sm" id="password" type="password"
+                    <input class="bg-gray-50 p-2 rounded-mdtext-sm" id="password" type="password"
                         placeholder="Nhập mật khẩu mới">
                     <label for="password_confirm" class="mt-3 text-sm">Xác nhận lại mật khẩu</label>
                     <input class="bg-gray-50 p-2 text-sm rounded-md border" id="password_confirm" type="password"
