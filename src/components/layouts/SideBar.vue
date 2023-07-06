@@ -1053,7 +1053,7 @@
                       bg-purple-600
                       rounded-tr-lg rounded-br-lg
                     " aria-hidden="true"></span>
-            <router-link to="/user" class="
+            <router-link @click="closeSideMenu()" to="/user" class="
                       inline-flex
                       items-center
                       w-full
