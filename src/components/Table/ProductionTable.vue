@@ -1,7 +1,7 @@
 <template>
     <div class="w-full overflow-x-auto">
         <div class="flex justify-end py-2">
-            <form class="flex">
+            <form class="flex mr-1">
                 <input class="
                         block
                         w-48
@@ -23,7 +23,7 @@
                     </svg>
                 </button>
             </form>
-            <div class="inline-block relative group mx-2">
+            <!-- <div class="inline-block relative group mx-2">
                 <ul class="absolute hidden text-gray-700 pt-1 right-0 top-[50] group-hover:block z-50"
                     style="margin-top: 35px;">
                     <li class=""><a
@@ -42,7 +42,7 @@
                             clip-rule="evenodd" />
                     </svg>
                 </button>
-            </div>
+            </div> -->
             <button onclick=""
                 class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border-0 rounded-lg active:bg-green-700 hover:bg-green-700 focus:outline-none focus:shadow-outline-purple">
                 Xuất Excel

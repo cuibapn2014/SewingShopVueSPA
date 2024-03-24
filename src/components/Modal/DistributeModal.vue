@@ -92,7 +92,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" v-tooltip="'Lưu ý'">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span class="mx-1 text-sm">Bạn không thể cập nhật phân bổ khi ở trạng thái Đang sản xuất</span>
+            <span class="mx-1 text-sm">Bạn sẽ không thể cập nhật phân bổ khi ở trạng thái là Đang sản xuất</span>
           </div>
           <footer
             class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800"
@@ -189,7 +189,10 @@ export default {
     addRemind(){
       const total = this.data.product?.amount + this.data.completed
       const length = 10
-      for(let i = 1;i <= length;i++) this.remind.push(Math.ceil(total/i))
+      for(let i = 1;i <= length;i++) {
+        if(Math.ceil(total/i) > 0)
+        this.remind.push(Math.ceil(total/i))
+      }
       this.remind = [...new Set(this.remind)].sort((a, b) => a - b)
     },
     applyRemind(amount){
