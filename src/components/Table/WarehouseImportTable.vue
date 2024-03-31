@@ -29,10 +29,10 @@
                 {{ item.amount.toLocaleString('vi') }} {{ item.ingredient.unit_cal.name }}
             </td>
             <td class="px-3 py-3 text-sm">
-                {{ item.ingredient.Gia.toLocaleString('vi') }}
+                {{ item.ingredient.price.toLocaleString('vi') }}
             </td>
             <td class="px-3 py-3 text-sm">
-                {{ Number(item.ingredient.Gia * item.amount).toLocaleString('vi') }}
+                {{ Number(item.ingredient.price * item.amount).toLocaleString('vi') }}
             </td>
             <td class="px-3 py-3 text-sm max-w-xs overflow-hidden text-ellipsis" v-tooltip="item.note">
                 {{ item.note }}

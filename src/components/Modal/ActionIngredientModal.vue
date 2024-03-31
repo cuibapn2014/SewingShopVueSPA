@@ -65,7 +65,7 @@
             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
             placeholder="Nhập giá"
             name="price"
-            v-model="this.data_edit.Gia"
+            v-model="this.data_edit.price"
             @input="this.validateNumber($event, 'price')"
             @blur="this.numberToString"
             @focus="this.stringToNumber"
@@ -212,7 +212,7 @@ export default {
           if (res.data) {
             const data = res.data.data;
             this.data_edit = data
-            this.data_edit.Gia = this.data_edit.Gia.toLocaleString('vi')
+            this.data_edit.price = this.data_edit.price.toLocaleString('vi')
           }
         });
     },

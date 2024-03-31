@@ -31,7 +31,7 @@
                 {{ item.ingredient_type.name }}
             </td>
             <td class="px-4 py-3 text-sm">
-                {{ item.Gia?.toLocaleString('vi') }}
+                {{ item.price?.toLocaleString('vi') }}
             </td>
             <td class="px-4 py-3 text-sm">
                 {{ item.GiaThanh?.toLocaleString('vi') }}
