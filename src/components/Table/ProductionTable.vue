@@ -77,7 +77,7 @@
                     {{ item.code }}
                 </td>
                 <td class="px-4 py-3 text-sm ">
-                    {{ item.product.Ten }}
+                    {{ item.product.name }}
                 </td>
                 <td class="px-4 py-3 text-sm ">
                     {{ item.product.ingredient_type.name }}

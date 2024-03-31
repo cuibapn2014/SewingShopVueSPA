@@ -25,7 +25,7 @@
                     alt="" />
             </td>
             <td class="px-4 py-3 text-sm">
-                {{ item.Ten }}
+                {{ item.name }}
             </td>
             <td class="px-4 py-3 text-sm">
                 {{ item.ingredient_type.name }}

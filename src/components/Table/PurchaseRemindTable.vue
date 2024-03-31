@@ -78,7 +78,7 @@
           {{ item.production_request.code }}
         </td>
         <td class="px-4 py-3 text-sm">
-          {{ item.ingredient.Ten }}
+          {{ item.ingredient.name }}
         </td>
         <td class="px-1 py-3 text-sm">
           {{ item.ingredient.ingredient_type.name }}

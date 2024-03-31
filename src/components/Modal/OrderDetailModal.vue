@@ -91,11 +91,11 @@
             ++index
           }}</span>
           <span class="col-span-2"
-            >{{ product.Ten }} x {{ amount }}
+            >{{ product.name }} x {{ amount }}
             {{ product.unit_cal.name }}</span
           >
           <span class="text-center">{{
-            quality && quality.Ten
+            quality && quality.name
           }}</span>
           <span class="text-center">{{
             product && price.toLocaleString()

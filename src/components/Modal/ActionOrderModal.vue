@@ -93,7 +93,7 @@
           placeholder="Chọn sản phẩm"
           label="Sản phẩm"
           :options="this.opt_product[product.id] ?? []"
-          :selected="this.selectedProduct ?? product.product?.Ten"
+          :selected="this.selectedProduct ?? product.product?.name"
           @search="this.searchProduct($event, product.id)"
           :error_message="this.errors?.id_product"
           :required="true"

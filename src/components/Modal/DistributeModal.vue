@@ -60,7 +60,7 @@
             <p class="text-sm text-gray-700 dark:text-gray-900 bg-yellow-400 p-2 rounded-md">
               Sản phẩm: 
               <strong class="text-base font-bold">
-                {{ this.data && this.data.product?.Ten }}
+                {{ this.data && this.data.product?.name }}
               </strong><br/>
               Số lượng cần: {{ this.data.amount?.toLocaleString('vi') }} {{ this.data.product?.unit_cal?.name }}<br/>
               Tồn kho: {{ this.data &&

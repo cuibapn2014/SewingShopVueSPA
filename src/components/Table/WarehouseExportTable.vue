@@ -23,7 +23,7 @@
                 {{ item.type == 1 ? 'Sản xuất' : 'Bán hàng' }}
             </td>
             <td class="px-3 py-3 text-sm">
-                {{ item.ingredient.Ten }}
+                {{ item.ingredient.name }}
             </td>
             <td class="px-3 py-3 text-sm">
                 {{ item.amount.toLocaleString('vi') }} {{ item.ingredient.unit_cal.name }}

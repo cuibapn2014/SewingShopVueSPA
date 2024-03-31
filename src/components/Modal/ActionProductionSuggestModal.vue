@@ -80,7 +80,7 @@
           placeholder="Chọn sản phẩm"
           label="Sản phẩm"
           :options="this.opt_product ?? []"
-          :selected="this.selectedProduct ?? this.data_edit?.product?.Ten"
+          :selected="this.selectedProduct ?? this.data_edit?.product?.name"
           @search="this.searchProduct($event)"
           :error_message="this.errors?.id_product"
           :required="true"
@@ -175,7 +175,7 @@ export default {
     detail_txt(){
       let data = this.data_edit
       const code = data?.detail_order?.order?.code
-      const product = data?.detail_order?.product?.Ten
+      const product = data?.detail_order?.product?.name
       const customer = data?.detail_order?.order?.customer?.name
       return code && product && customer ? `${code} - ${product} - KH: ${customer}` : ''
     }

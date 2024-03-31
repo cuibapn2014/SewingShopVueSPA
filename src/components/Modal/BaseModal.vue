@@ -10,7 +10,7 @@
         bg-black bg-opacity-50
         sm:items-center sm:justify-center
         z-50
-      " id="backdrop-overlay" @click="closeModal" @keydown.escape="closeModal">
+      " id="backdrop-overlay" @click="isBackdrop() ? closeModal : null" @keydown.escape="isBackdrop() ? closeModal : null">
             <transition enter-from-class="ease-out opacity-0 transform translate-y-1/2" enter-to-class="opacity-100"
                 leave-from-class="ease-in opacity-100" leave-to-class="opacity-0 transform translate-y-1/2">
                 <!-- Modal -->
@@ -24,7 +24,7 @@
           duration-150
           dark:bg-gray-800
           sm:rounded-lg sm:m-4 sm:max-w-xl
-        " role="dialog" id="modal" @click.stop="" @keydown.escape="closeModal">
+        " role="dialog" id="modal" @click.stop="" @keydown.escape="isBackdrop() ? closeModal : null">
                     <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
                     <header class="flex justify-end">
                         <button class="
@@ -126,7 +126,8 @@ export default {
     props: {
         title: String,
         display: Boolean,
-        txt_accept: String
+        txt_accept: String,
+        backdrop: Boolean
     },
     updated() {
         this.isOpenModal = this.display
@@ -140,6 +141,9 @@ export default {
     methods: {
         closeModal() {
             this.$emit('close-base-modal')
+        },
+        isBackdrop() {
+            return this.backdrop !== undefined && this.backdrop ? !this.backdrop : true
         }
     }
 }

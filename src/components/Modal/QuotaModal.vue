@@ -28,7 +28,7 @@
             class="flex items-center justify-between border-bottom border-gray-200 py-2"
           >
             <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">
-              Định mức ({{ this.product?.Ten }})
+              Định mức ({{ this.product?.name }})
             </h2>
 
             <button
@@ -66,7 +66,7 @@
                   placeholder="Chọn nguyên vật liệu"
                   label="Nguyên vật liệu"
                   :options="this.opt_ingredient[item.id] ?? []"
-                  :selected="item.ingredient?.Ten"
+                  :selected="item.ingredient?.name"
                   @search="this.searchIngredient($event, item.id)"
                   :value="item.ingredient?.id"
                   :required="true"

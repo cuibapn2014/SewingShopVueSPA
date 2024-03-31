@@ -71,8 +71,8 @@
                     <div v-for="production in this.productions" :key="production.id"
                         class="grid grid-cols-5 gap-x-2 gap-y-4 my-3 px-0 w-full">
                         <div class="dark:text-gray-200 h-8 overflow-hidden text-ellipsis whitespace-nowrap py-1"
-                            v-tooltip="production.product.Ten + ' - ' + production.product.stage_product.name">{{
-                            production.product.Ten + ' - ' + production.product.stage_product.name }}</div>
+                            v-tooltip="production.product.name + ' - ' + production.product.stage_product.name">{{
+                            production.product.name + ' - ' + production.product.stage_product.name }}</div>
                         <div class="col-span-4 bg-gray-300 rounded-md overflow-hidden">
                             <p v-if="this.calPerProgress(production) <= 0" class="h-8 py-1 text-center">0%</p>
                                 <div v-if="this.calPerProgress(production) > 0" class="h-8 bg-indigo-500 text-center text-white py-1 duration-150 ease-in delay-150" :style="'width:' + this.calPerProgress(production) + '%'"

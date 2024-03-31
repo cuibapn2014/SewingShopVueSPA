@@ -29,7 +29,7 @@
                     {{ item.detail_order_id > 0 ? 'SX theo đơn' : 'SX lưu kho' }}
                 </td>
                 <td class="px-3 py-3 text-sm ">
-                    {{ item.product.Ten }}
+                    {{ item.product.name }}
                 </td>
                 <td class="px-3 py-3 text-sm">
                     {{ item.size }}{{ item.color ? ' - ' + item.color : '' }}
