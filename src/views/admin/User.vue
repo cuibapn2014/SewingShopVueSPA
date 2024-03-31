@@ -4,13 +4,15 @@
       Nhân sự
     </h2>
     <div class="flex justify-end py-2">
-      <form method="GET" class="flex" @submit.prevent="this.searchSubmit()">
+      <form id="form-search" method="GET" class="flex" @submit.prevent="">
         <input
           class="block w-48 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray rounded-l-md form-input"
           type="text"
           name="keyword"
           placeholder="Nhập tìm kiếm.."
           v-model="this.search"
+          autocomplete="off"
+          @input="this.searchSubmit()"
         />
         <button
           class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
@@ -29,26 +31,6 @@
           </svg>
         </button>
       </form>
-      <button
-        class="flex items-center px-2 py-2 mx-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-        @click="this.reload()"
-      >
-        Tải lại
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 ml-1"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-          />
-        </svg>
-      </button>
     </div>
     <UserTable
       :data_list="this.dataList"
@@ -63,6 +45,7 @@ import BaseLayout from "../../components/layouts/BaseLayout.vue";
 import UserTable from "../../components/Table/UserTable.vue";
 import { userService } from "../../services/user.service";
 import emitter from "tiny-emitter/instance";
+import { UrlHelper } from '../../helpers/url-helper';
 
 export default {
   extends: BaseLayout,
@@ -71,11 +54,12 @@ export default {
     UserTable,
   },
   created() {
-    this.fetchDataUser();
+    let defaultSearchQuery = UrlHelper.setDefaultSearch()
+    this.fetchDataUser(null, defaultSearchQuery);
   },
   mounted() {
-    emitter.on("pagechanged", async (data) => {
-      await this.fetchDataUser(data);
+    emitter.on("pagechanged", async (url) => {
+      await this.fetchDataUser(url);
     });
   },
   beforeUnmount() {
@@ -93,26 +77,19 @@ export default {
       isOpenModal: false,
       editId: null,
       search: null,
+      delaySearch: null
     };
   },
   methods: {
-    async fetchDataUser(pageTo = null) {
+    async fetchDataUser(url = null, query = null) {
       this.isLoadData = true;
-      const urlSearch = await new URLSearchParams(window.location.search);
-      const data = {
-        keyword: this.search,
-      };
-      let page = (await urlSearch.has("page"))
-        ? pageTo ?? urlSearch.get("page")
-        : pageTo ?? 1;
+
       await userService
-        .getAll(page, data)
+        .getAll(url, query)
         .then((res) => {
           if (res.data.code == 200) this.dataList = res.data;
         })
-        .then(() => {
-          this.isLoadData = false;
-        });
+        .then(() => this.isLoadData = false);
     },
     closeModal(data) {
       this.isOpenModal = data;
@@ -129,9 +106,14 @@ export default {
       this.openModal();
     },
     searchSubmit() {
-      if (this.search && this.search != "") {
-        this.fetchDataUser();
-      }
+      clearTimeout(this.delaySearch)
+      this.delaySearch = setTimeout(() => {
+        let serialize = new URLSearchParams(new FormData(document.querySelector('#form-search'))).toString();
+        let urlSearch = window.location.pathname + '?' + serialize;
+        window.history.pushState({}, null, urlSearch)
+
+        this.fetchDataUser(null, serialize);
+      }, 250);
     },
     reload() {
       this.search = null;

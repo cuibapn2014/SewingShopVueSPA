@@ -14,19 +14,17 @@ export const customerService = {
     deleteById
 }
 
-async function getDataAll(page = null, data = null){
+async function getDataAll(url = null, query = null){
     const requestOptions = {
         headers: {
             ...authHeader(),
             'Content-Type': 'application/json'
         }
     };
-    return axios.get(`${config.apiUrl}/customer`, {
-        params:{
-            ...data,
-            page: page
-        }
-    }, requestOptions);
+
+    let uri = `${config.apiUrl}/customer?${query}`
+
+    return axios.get(url ?? uri, requestOptions);
 }
 
 async function create(customer){

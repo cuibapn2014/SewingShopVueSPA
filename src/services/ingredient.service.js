@@ -15,19 +15,15 @@ export const ingredientService = {
     deleteById
 }
 
-async function getDataAll(page = null, data){
+async function getDataAll(url = null, query){
     const requestOptions = {
         headers: {
             ...authHeader(),
             'Content-Type': 'application/json'
         }
     };
-    return axios.get(`${config.apiUrl}/ingredient`, {
-        params:{
-            ...data,
-            page: page
-        }
-    },requestOptions);
+    let uri = `${config.apiUrl}/ingredient?${query}`;
+    return axios.get(url ?? uri, null ,requestOptions);
 }
 
 async function getDataBySelectBox(data){

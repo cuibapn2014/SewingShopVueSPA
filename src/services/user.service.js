@@ -58,19 +58,17 @@ async function register(user) {
     return await axios.post(`${config.apiUrl}/auth/register`, user, requestOptions);
 }
 
-function getAll(page, data) {
+function getAll(url = null, query = null) {
     const requestOptions = {
         headers: {
             ...authHeader(),
             'Content-Type': 'application/json'
         }
     };
-    return axios.get(`${config.apiUrl}/users`, {
-        params:{
-            ...data,
-            page: page
-        }
-    }, requestOptions);
+
+    let uri = `${config.apiUrl}/users?${query}`
+
+    return axios.get(url ?? uri, null, requestOptions);
 }
 
 

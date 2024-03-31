@@ -16,19 +16,17 @@ export const productionRequestService = {
     updateCompleted
 }
 
-async function getDataAll(page = null, data){
+async function getDataAll(url = null, query = null){
     const requestOptions = {
         headers: {
             ...authHeader(),
             'Content-Type': 'application/json'
         }
     };
-    return axios.get(`${config.apiUrl}/production-request`, {
-        params:{
-            ...data,
-            page: page
-        }
-    }, requestOptions);
+    
+    let uri = `${config.apiUrl}/production-request?${query}`;
+
+    return axios.get(url ?? uri, null, requestOptions);
 }
 
 async function findById(id){

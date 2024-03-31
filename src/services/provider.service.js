@@ -14,19 +14,17 @@ export const providerService = {
     getDataSelect
 }
 
-async function getDataAll(page = null, data = null){
+async function getDataAll(url = null, query = null){
     const requestOptions = {
         headers: {
             ...authHeader(),
             'Content-Type': 'application/json'
         }
     };
-    return axios.get(`${config.apiUrl}/provider`, {
-        params:{
-            ...data,
-            page: page
-        }
-    }, requestOptions);
+
+    let uri = `${config.apiUrl}/provider?${query}`
+
+    return axios.get(url ?? uri, null, requestOptions);
 }
 
 async function getDataSelect(data = null){

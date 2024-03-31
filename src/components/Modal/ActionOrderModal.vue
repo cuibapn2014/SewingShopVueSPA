@@ -38,9 +38,10 @@
             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
             name="vat"
             v-model="this.data_edit.vat"
+            @change="this.setTotalPrice"
           >
             <option disabled value="">Chọn mức thuế</option>
-            <option value="0" selected>0%</option>
+            <option value="0">0%</option>
             <option value="5">5%</option>
             <option value="8">8%</option>
             <option value="10">10%</option>
@@ -76,6 +77,7 @@
             name="delivery_date"
             placeholder=""
             :value="this.$moment(this.data_edit?.NgayTraDon).format('YYYY-MM-DD')"
+            autocomplete="off"
           />
         </label>
       </div>
@@ -106,7 +108,7 @@
           placeholder="Nhập số lượng"
           :required="true"
           :value="product.amount"
-          @change_number="this.totalPrice()"
+          @change_number="this.setTotalPrice()"
         />
         <NumberInput
           name="price[]"
@@ -114,7 +116,7 @@
           placeholder="Nhập đơn giá"
           :required="true"
           :value="product.price"
-          @change_number="this.totalPrice()"
+          @change_number="this.setTotalPrice()"
         />
         <label class="block text-sm">
           <span class="flex text-gray-700 dark:text-gray-400">
@@ -124,7 +126,7 @@
           <select
             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
             name="quality[]"
-            :v-model="product.id_ChatLuong"
+            :v-model="product.quality?.id"
           >
             <option disabled>Chọn chất lượng</option>
             <option value="2" selected>Thường</option>
@@ -214,7 +216,7 @@ export default {
         this.total_price = 0
         this.selectedCustomer = this.selectedProduct = null;
         this.display = [null];
-        this.data_edit = {};
+        this.data_edit = {vat: 0};
       }
       if (!this.id_order) {
         this.title = "Thêm mới đơn hàng";
@@ -237,7 +239,7 @@ export default {
       errors: {},
       opt_customer: [],
       opt_product: {},
-      detail_order: [{ id: "tmp_1" }],
+      detail_order: [{ id: "tmp_1"}],
       selectedCustomer: null,
       selectedProduct: null,
       url: config.apiUrl.split("/api")[0],
@@ -375,7 +377,7 @@ export default {
       if (!id) return;
       this.detail_order = this.detail_order.filter((item) => item.id != id);
     },
-    totalPrice(){
+    setTotalPrice(){
       const percent_vat = Number(this.data_edit?.vat)
       const listPrice = document.querySelectorAll('[name="price[]"]')
       const listAmount = document.querySelectorAll('[name="quantity[]"]')
@@ -388,6 +390,7 @@ export default {
       })
 
       this.total_price = Math.ceil(total + total * percent_vat / 100)
+      this.total_price = Number.isNaN(this.total_price) ? 0 : this.total_price
     }
   },
 };

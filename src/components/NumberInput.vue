@@ -12,8 +12,8 @@
             :name="this.name"
             :placeholder="this.placeholder"
             @input="this.validateNumber($event, name.replace('[]', ''))"
-            @blur="this.numberToString"
-            @focus="this.stringToNumber"
+            @keyup="this.numberToString"
+            autocomplete="off"
           />
         </label>
 </template>
@@ -33,7 +33,11 @@ export default {
         value: Number,
         error_message: String,
         name: String,
-        placeholder:String
+        placeholder:String,
+        accept_negative_number: {
+            type: Boolean,
+            default: false
+        }
     },
     watch: {
         value: function(n, o){
@@ -55,7 +59,7 @@ export default {
             this.$emit('change_number')
         },
         numberToString(e) {
-            let value = numberFunctions.convertNumberToString(e.target.value);
+            let value = numberFunctions.convertNumberToString(e.target.value, this.accept_negative_number);
             e.target.value = value;
             this.$emit('change_number')
         },

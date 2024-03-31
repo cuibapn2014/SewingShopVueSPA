@@ -5,9 +5,14 @@ export const numberFunctions = {
     regexDecimal
 }
 
-function convertNumberToString(number){
-    if(Number.isNaN(Number(number))) return 0
-    return Number(number).toLocaleString('vi')
+function convertNumberToString(number, acceptNegativeNumber = false){
+    let str = number.replaceAll(".", "").replace(',',".")
+
+    if(str.trim().length <= 0) return '';
+    if(acceptNegativeNumber && number.trim() === '-') return str.trim()
+    if(Number.isNaN(Number(str))) return 0
+
+    return Number(str).toLocaleString('vi')
 }
 
 function convertStringToNumber(string){

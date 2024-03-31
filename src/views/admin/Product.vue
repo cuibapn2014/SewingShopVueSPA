@@ -4,13 +4,15 @@
       Thành phẩm
     </h2>
     <div class="flex justify-end py-2 sticky top-0 z-10 bg-transparent dark:bg-gray-900">
-      <form method="GET" @submit.prevent="this.searchSubmit()" class="flex mx-2">
+      <form id="form-search" method="GET" @submit.prevent="" class="flex mx-2">
         <input
           class="block w-48 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray rounded-l-md form-input"
           type="text"
           name="keyword"
           placeholder="Nhập tìm kiếm.."
           v-model="this.search"
+          autocomplete="off"
+          @input="this.searchSubmit()"
         />
         <button
           class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
@@ -68,26 +70,6 @@
           />
         </svg>
       </button>
-      <button
-        class="flex items-center px-2 py-2 mx-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border-0 rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-        @click="this.reload()"
-      >
-        Tải lại
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 ml-1"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-          />
-        </svg>
-      </button>
     </div>
     <ProductTable 
     :data_list="this.dataList" 
@@ -108,6 +90,7 @@ import ProductTable from "../../components/Table/ProductTable.vue";
 import { ingredientService } from "../../services/ingredient.service"
 import emitter from 'tiny-emitter/instance'
 import ActionProductModal from '../../components/Modal/ActionProductModal.vue';
+import { UrlHelper } from '../../helpers/url-helper';
 
 export default {
   extends: BaseLayout,
@@ -115,11 +98,12 @@ export default {
     BaseLayout, ProductTable, ActionProductModal
   },
   created() {
-    this.fetchDataProduct()
+    let defaultSearchQuery = UrlHelper.setDefaultSearch()
+    this.fetchDataProduct(null, defaultSearchQuery)
   },
   mounted() {
-    emitter.on('pagechanged', async (data) => {
-      await this.fetchDataProduct(data)
+    emitter.on('pagechanged', async (url) => {
+      await this.fetchDataProduct(url)
     })  
   },
   beforeUnmount() {
@@ -137,27 +121,22 @@ export default {
       isOpenModal: false,
       editId: null,
       search: null,
+      delaySearch: null
     }
   },
   methods: {
-    async fetchDataProduct(pageTo = null) {
+    async fetchDataProduct(url = null, query = null) {
       this.isLoadData = true;
-      const urlSearch = await new URLSearchParams(window.location.search);
-      let page = (await urlSearch.has("page"))
-        ? pageTo ?? urlSearch.get("page")
-        : pageTo ?? 1;
-      const data = {
-        keyword: this.search,
-        type : 2
-      };
+
+      if(url) url = url.includes('?') ? url + '&type=2' : '?type=2'
+      else query = query ? query + '&type=2' : 'type=2'
+
       await ingredientService
-        .getDataAll(page, data)
+        .getDataAll(url, query)
         .then((res) => {
           if (res.data.code == 200) this.dataList = res.data;
         })
-        .then(() => {
-          this.isLoadData = false;
-        });
+        .then(() => this.isLoadData = false);
     },
     closeModal(data) {
       this.isOpenModal = data;
@@ -174,13 +153,14 @@ export default {
       this.openModal();
     },
     searchSubmit() {
-      if (this.search && this.search != "") {
-        this.fetchDataProduct();
-      }
-    },
-    reload() {
-      this.search = null;
-      this.fetchDataProduct();
+      clearTimeout(this.delaySearch)
+      this.delaySearch = setTimeout(() => {
+        let serialize = new URLSearchParams(new FormData(document.querySelector('#form-search'))).toString();
+        let urlSearch = window.location.pathname + '?' + serialize;
+        window.history.pushState({}, null, urlSearch)
+
+        this.fetchDataProduct(null, serialize);
+      }, 250);
     },
   }
 }
