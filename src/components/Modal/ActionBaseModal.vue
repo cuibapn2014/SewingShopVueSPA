@@ -50,7 +50,7 @@
                     </button>
                 </header>
                 <!-- Modal body -->
-                <div class="mt-4 mb-6 pb-28 h-full overflow-y-auto overflow-x-visible">
+                <div class="mt-4 mb-6 pb-28 h-full overflow-y-auto overflow-x-visible px-1">
                     <!-- Modal title -->
                     <p class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-300">
                         {{ title }}
@@ -114,7 +114,8 @@ export default {
         is_open: Boolean,
         title: String,
         create_data: Function,
-        is_submit: Boolean
+        is_submit: Boolean,
+        backdrop: Boolean
     },  
     watch: {
         is_open: function (n, o) {
@@ -123,7 +124,7 @@ export default {
     },
     created(){
         window.addEventListener('keydown', e => {
-            if(e.key && e.key.toLocaleLowerCase() === 'escape' && this.is_open)
+            if(e.key && e.key.toLocaleLowerCase() === 'escape' && this.is_open && this.isBackdrop())
                 this.closeModal()
         })
     },
@@ -140,6 +141,9 @@ export default {
         save(){
             if(!this.is_submit)
                 this.$emit('save_data')
+        },
+        isBackdrop() {
+            return this.backdrop !== undefined && this.backdrop ? this.backdrop : false
         }
     }
 }
