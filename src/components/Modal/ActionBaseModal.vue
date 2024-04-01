@@ -67,7 +67,7 @@
             -mx-6
             -mb-4
             space-y-4
-            sm:space-y-0 sm:space-x-6 sm:flex-row
+            sm:space-y-0 sm:space-x-3 sm:flex-row
             bg-gray-50
             dark:bg-gray-800
             absolute bottom-0
@@ -77,7 +77,7 @@
                     <button class="
               w-full
               px-4
-              py-3
+              py-2
               text-sm
               font-medium
               leading-5
@@ -96,7 +96,7 @@
             " @click="this.closeModal()">
                         Đóng
                     </button>
-            <button @click.prevent="this.save()" class="w-full text-white leading-5 py-3 sm:w-auto px-4 sm:py-2 rounded-lg border-0 bg-indigo-600 hover:bg-indigo-700 duration-150">
+            <button @click.prevent="this.save()" class="w-full text-white leading-5 py-2 sm:w-auto px-4 sm:py-2 rounded-lg border-0 bg-indigo-600 hover:bg-indigo-700 duration-150">
                 <font-awesome-icon v-if="is_submit" class="animate-spin"
                                     icon="fa-solid fa-circle-notch" />
                 Lưu

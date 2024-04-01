@@ -100,7 +100,7 @@
                     <button class="
               w-full
               px-4
-              py-3
+              py-2
               text-sm
               font-medium
               leading-5
