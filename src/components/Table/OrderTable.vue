@@ -46,7 +46,7 @@
                 {{ this.$moment(item.updated_at).format('DD/MM/YYYY') }}
             </td>
             <td class="px-4 py-3 text-sm">
-                {{ this.$moment(item.NgayTraDon).format('DD/MM/YYYY') }}
+                {{ this.$moment(item.finish_date).format('DD/MM/YYYY') }}
             </td>
             <td class="px-4 py-3 text-sm flex items-center">
                 <button title="Chỉnh sửa" v-tooltip="'Chỉnh sửa'"

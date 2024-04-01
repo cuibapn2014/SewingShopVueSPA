@@ -1,6 +1,6 @@
 <template>
   <div class="w-full relative" ref="select_custom">
-    <label class="block text-sm my-2 relative">
+    <label class="block text-sm mt-2 relative">
       <span class="text-gray-700 dark:text-gray-400">{{ this.label }}<span v-if="this.required" class="text-red-500">*</span></span>
       <span class="text-red-700 dark:text-red-500 font-semibold mx-1">{{ this.error_message }}</span>
       <input

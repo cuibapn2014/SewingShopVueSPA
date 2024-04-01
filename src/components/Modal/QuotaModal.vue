@@ -227,8 +227,8 @@ export default {
         name: data,
       };
       await ingredientService.getDataBySelectBox(term).then((res) => {
-        if (res.data.code == 200) {
-          this.opt_ingredient[key] = res.data.data;
+        if (res.data.code == 200 && Array.isArray(res.data.data)) {
+          this.opt_ingredient[key] = res.data.data.filter(item => item.value != this.product.id);
         }
       });
     },

@@ -76,7 +76,7 @@
             type="date"
             name="delivery_date"
             placeholder=""
-            :value="this.$moment(this.data_edit?.NgayTraDon).format('YYYY-MM-DD')"
+            :value="this.$moment(this.data_edit?.finish_date).format('YYYY-MM-DD')"
             autocomplete="off"
           />
         </label>
@@ -84,6 +84,12 @@
       <h3 class="my-4 text-lg font-semibold text-gray-700 dark:text-gray-200 border-t-[1px] pt-4">
         Chi tiết đơn hàng
       </h3>
+      <div
+        v-if="detail_order.length <= 0"
+        class="w-full text-center dark:text-gray-200"
+      >
+        <span>Hãy thêm chi tiết đơn hàng</span>
+      </div>
       <div
         v-for="(product, index) in detail_order"
         :key="product.id"
@@ -126,7 +132,7 @@
           <select
             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
             name="quality[]"
-            :v-model="product.quality?.id"
+            v-model="product.quality.id"
           >
             <option disabled>Chọn chất lượng</option>
             <option value="2" selected>Thường</option>
@@ -211,8 +217,14 @@ export default {
     is_open_modal: function (n, o) {
       if (!o) {
         this.opt_customer = []
-        this.opt_product = {}
-        this.detail_order = [{ id: "tmp_1" }]
+        this.opt_product  = {}
+        this.detail_order = [{ 
+          id: "tmp_1", 
+          quality: {
+            id: 2,
+            name: 'Thường'
+          } 
+        }]
         this.total_price = 0
         this.selectedCustomer = this.selectedProduct = null;
         this.display = [null];
@@ -239,7 +251,12 @@ export default {
       errors: {},
       opt_customer: [],
       opt_product: {},
-      detail_order: [{ id: "tmp_1"}],
+      detail_order: [{ id: "tmp_1",
+          quality: {
+            id: 2,
+            name: 'Thường'
+          }
+      }],
       selectedCustomer: null,
       selectedProduct: null,
       url: config.apiUrl.split("/api")[0],
@@ -371,7 +388,13 @@ export default {
     addDetail() {
       let arr = this.detail_order.filter((item) => item.id.toString().includes("tmp_"));
       let tmp_id = arr.length <= 0 ? 1 : Number(arr.pop().id.substr(4)) + 1;
-      this.detail_order.push({ id: `tmp_${tmp_id}` });
+      this.detail_order.push({ 
+        id: `tmp_${tmp_id}`,
+        quality: {
+          id: 2,
+          name: 'Thường'
+        }
+      });
     },
     removeDetailById(id) {
       if (!id) return;
