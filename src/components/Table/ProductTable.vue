@@ -43,7 +43,7 @@
                 {{ item.used_amount.toLocaleString('vi') }} {{ item.unit_cal.name }}
             </td>
             <td class="px-4 py-3 text-sm">
-                {{ item.GhiChu }}
+                {{ item.note }}
             </td>
             <td class="px-4 py-3 text-sm flex items-center">
                 <button

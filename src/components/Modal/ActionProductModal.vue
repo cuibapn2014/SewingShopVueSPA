@@ -67,21 +67,14 @@
           :value="this.data_edit?.unit_cal?.id"
           :allow_clear="true"
         />
-        <label class="block text-sm my-2">
-          <span class="text-gray-700 dark:text-gray-400">Giá</span>
-          <span class="text-red-700 dark:text-red-500 font-semibold mx-1">{{
-            this.errors?.price
-          }}</span>
-          <input
-            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Nhập giá"
-            name="price"
-            v-model="this.data_edit.price"
-            @keyup="this.validateNumber($event, 'price')"
-            @blur="this.numberToString"
-            @focus="this.stringToNumber"
-          />
-        </label>
+        <NumberInput
+          name="price"
+          class="mt-1"
+          label="Giá"
+          placeholder="Nhập giá"
+          :value="this.data_edit.price"
+          :error_message="this.errors?.price"
+        />
       <AutoComplete
           name="provider_id"
           placeholder="Chọn nhà cung cấp"
@@ -100,7 +93,7 @@
           rows="3"
           placeholder="Nhập ghi chú"
           name="note"
-          v-model="this.data_edit.GhiChu"
+          v-model="this.data_edit.note"
         ></textarea>
       </label>
       <div class="upload__image block text-sm my-2 md:col-span-2">
@@ -149,13 +142,15 @@ import { stageService } from "../../services/stage.service";
 import { numberFunctions } from "../../helpers/numberFunctions";
 import { config } from '../../helpers/config';
 import ConfirmDeleteModal from "./ConfirmDeleteModal.vue"
+import NumberInput from '../NumberInput.vue';
 
 export default {
   components: {
     ActionBaseModal,
     UploadFile,
     AutoComplete,
-    ConfirmDeleteModal
+    ConfirmDeleteModal,
+    NumberInput
   },
   props: {
     is_open_modal: Boolean,

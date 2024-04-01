@@ -1,5 +1,5 @@
 <template>
-    <label class="block text-sm mx-2">
+    <label class="block text-sm">
           <span class="flex text-gray-700 dark:text-gray-400"
             >{{ this.label }}
             <p v-if="this.required" class="text-red-500 mx-1">*</p>
