@@ -3,7 +3,7 @@
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
       Nhập kho
     </h2>
-    <WarehouseImportTable :data_list="this.dataList" :is_load="getIsLoad" />
+    <WarehouseImportTable :data_list="this.dataList" :is_load="getIsLoad" @reload="this.fetchDataWarehouseImport()"/>
   </div>
 </template>
 <script>

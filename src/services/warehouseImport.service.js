@@ -6,7 +6,8 @@ axios.defaults.withCredentials = true
 
 
 export const warehouseImportService = {
-    getDataAll
+    getDataAll,
+    updateStatus
 }
 
 async function getDataAll(page = null, type = 1){
@@ -18,4 +19,14 @@ async function getDataAll(page = null, type = 1){
     };
     let queryPage = page != null ? `?page=${page}` : ''
     return axios.get(`${config.apiUrl}/warehouse-import${queryPage}`, requestOptions);
+}
+
+async function updateStatus(id_request, status){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.post(`${config.apiUrl}/warehouse-import/update-status/${id_request}/${status}`, null, requestOptions);
 }

@@ -24,7 +24,7 @@
             />
           </svg>
         </button>
-      </form>    
+      </form>
       <button
         class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border-0 rounded-lg active:bg-green-700 hover:bg-green-700 focus:outline-none focus:shadow-outline-purple"
       >
@@ -87,7 +87,7 @@
           {{ item.ingredient.provider.name }}
         </td>
         <td class="px-4 py-3 text-sm">
-          {{ item.amount + " (" + item.ingredient.unit_cal.name + ")" }}
+          {{ item.amount.toLocaleString('vi') + " (" + item.ingredient.unit_cal.name + ")" }}
         </td>
         <td class="px-4 py-3 text-xs">
           <span
@@ -117,6 +117,7 @@
             title="Đã xử lý"
             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
             aria-label="Done"
+            @click="this.updateStatus(item.id, 2)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -137,6 +138,7 @@
             title="Không xử lý"
             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
             aria-label="Cancel"
+            @click="this.updateStatus(item.id, 4)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -157,6 +159,7 @@
             title="Đã nhập kho"
             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
             aria-label="Import"
+            @click="this.updateStatus(item.id, 3)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +192,9 @@
   </div>
 </template>
 <script>
+import { toast } from "vue3-toastify";
 import { config } from "../../helpers/config";
+import { purchaseRemindService } from "../../services/purchaseRemind.service";
 import BaseTable from "./BaseTable.vue";
 
 export default {
@@ -249,6 +254,28 @@ export default {
           return "Đã hủy bỏ";
       }
       return "Không xác định";
+    },
+    async updateStatus(id, status) {
+      await purchaseRemindService
+        .updateStatus(id, status)
+        .then((res) => {
+          if (res.data.msg) {
+            toast.success(res.data.msg, {
+              position: toast.POSITION.TOP_RIGHT,
+              theme: toast.THEME.COLORED,
+              pauseOnHover: false,
+            });
+          }
+
+          this.$emit('reload', []);
+        })
+        .catch((err) => {
+          toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: toast.THEME.COLORED,
+            pauseOnHover: false,
+          });
+        });
     },
   },
 };

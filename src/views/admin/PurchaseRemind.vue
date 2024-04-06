@@ -3,7 +3,7 @@
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
       Đề xuất mua hàng
     </h2>
-    <PurchaseRemindTable :data_list="this.dataList" :is_load="getIsLoad"/>
+    <PurchaseRemindTable :data_list="this.dataList" :is_load="getIsLoad" @reload="this.fetchData()"/>
   </div>
 </template>
 <script>

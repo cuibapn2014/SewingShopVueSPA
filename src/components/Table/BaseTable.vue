@@ -4,7 +4,7 @@
             <table class="w-full whitespace-no-wrap min-h-[100px]">
                 <thead>
                     <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 sticky top-0">
+                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 sticky top-0 z-10">
                         <th class="px-4 py-3 font-bold">#</th>
                         <th v-for="(row, index) in field_list" :key="index" class="px-4 py-3">{{ row }}</th>
                         <th class="px-4 py-3">Hành động</th>

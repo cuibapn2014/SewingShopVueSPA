@@ -182,19 +182,19 @@ export default {
                 .deleteById(this.deleteId)
                 .then((res) => {
                     if (res.data.msg) {
-                    toast.success(`Xóa thành công!`, {
-                        position: toast.POSITION.TOP_RIGHT,
-                        theme: toast.THEME.COLORED,
-                        pauseOnHover: false,
-                    });
-                    this.$emit("delete_ingredient");
+                        toast.success(`Xóa thành công!`, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: toast.THEME.COLORED,
+                            pauseOnHover: false,
+                        });
+                        this.$emit("delete_ingredient");
                     }
                 })
                 .catch((err) => {
-                    toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: toast.THEME.COLORED,
-                    pauseOnHover: false,
+                        toast.error(`Đã xảy ra lỗi! Vui lòng kiểm tra lại`, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: toast.THEME.COLORED,
+                        pauseOnHover: false,
                     });
                 });
             }

@@ -7,7 +7,8 @@ axios.defaults.withCredentials = true
 
 export const purchaseRemindService = {
     getDataAll,
-    create
+    create,
+    updateStatus
 }
 
 async function getDataAll(page = null){
@@ -25,8 +26,20 @@ async function create(id_request){
     const requestOptions = {
         headers: {
             ...authHeader(),
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
     };
     return axios.post(`${config.apiUrl}/purchase-remind/create/${id_request}`, null, requestOptions);
+}
+
+async function updateStatus(id_request, status){
+    const requestOptions = {
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        }
+    };
+    return axios.post(`${config.apiUrl}/purchase-remind/update-status/${id_request}`, {
+        status: status
+    }, requestOptions);
 }
